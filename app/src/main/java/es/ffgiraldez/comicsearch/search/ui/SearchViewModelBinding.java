@@ -22,15 +22,15 @@ import android.databinding.BindingAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import es.ffgiraldez.comicsearch.ui.EmptyMultiChoiceClickListener;
-import es.ffgiraldez.comicsearch.ui.binding.SubscribeActionOnAttachedStateChangeListener;
 import es.ffgiraldez.comicsearch.detail.DetailActivity;
 import es.ffgiraldez.comicsearch.search.presentation.SearchViewModel;
+import es.ffgiraldez.comicsearch.ui.EmptyMultiChoiceClickListener;
+import es.ffgiraldez.comicsearch.ui.binding.SubscribeActionOnAttachedStateChangeListener;
 import rx.functions.Action1;
 
 public class SearchViewModelBinding {
 
-    @BindingAdapter("app:model")
+    @BindingAdapter("model")
     public static void bindSearchViewModel(final RecyclerView recyclerView, final SearchViewModel viewModel) {
         SearchResultAdapter adapter = createAdapter(recyclerView, viewModel);
         fillRecyclerView(recyclerView, adapter, viewModel);

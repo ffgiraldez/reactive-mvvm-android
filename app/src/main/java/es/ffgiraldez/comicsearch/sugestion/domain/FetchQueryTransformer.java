@@ -33,16 +33,16 @@ public class FetchQueryTransformer implements Observable.Transformer<String, Lis
 
     @Override
     public Observable<List<String>> call(Observable<String> input) {
-        return input.onErrorReturn(new Func1<Throwable, String>() {
-            @Override
-            public String call(Throwable throwable) {
-                return throwable.getMessage();
-            }
-        }).switchMap(new Func1<String, Observable<List<String>>>() {
+        return input.switchMap(new Func1<String, Observable<List<String>>>() {
             @Override
             public Observable<List<String>> call(String query) {
                 return (query != null && query.length() >= 3)
                         ? fetchSuggestions(query) : Observable.just(Collections.<String>emptyList());
+            }
+        }).onErrorReturn(new Func1<Throwable, List<String>>() {
+            @Override
+            public List<String> call(Throwable throwable) {
+                return Collections.singletonList(throwable.getMessage());
             }
         });
     }

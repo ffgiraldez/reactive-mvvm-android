@@ -28,7 +28,7 @@ import rx.functions.Action1;
 
 public class SuggestionViewModelBinding {
 
-    @BindingAdapter({"app:model"})
+    @BindingAdapter("model")
     public static void bindSearchView(final MaterialSearchView searchView, final SuggestionViewModel viewModel) {
         final SuggestionAdapter adapter = new SuggestionAdapter(viewModel);
         searchView.setAdapter(adapter);
@@ -45,7 +45,7 @@ public class SuggestionViewModelBinding {
         ));
     }
 
-    @BindingAdapter({"app:item_handler"})
+    @BindingAdapter("item_handler")
     public static void onItemClick(final MaterialSearchView searchView, final SuggestionViewModel viewModel) {
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

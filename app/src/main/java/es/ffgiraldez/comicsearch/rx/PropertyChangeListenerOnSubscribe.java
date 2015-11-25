@@ -14,47 +14,44 @@
  * limitations under the License.
  */
 
-package es.ffgiraldez.comicsearch.search.presentation;
+package es.ffgiraldez.comicsearch.rx;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.List;
+import java.beans.PropertyChangeSupport;
 
-import es.ffgiraldez.comicsearch.model.SearchResult;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action0;
 import rx.subscriptions.BooleanSubscription;
 
-public class ObservableSearchViewModelResultsOnSubscribe implements Observable.OnSubscribe<List<SearchResult>> {
-    private final ObservableSearchViewModel view;
+public class PropertyChangeListenerOnSubscribe<T> implements Observable.OnSubscribe<T> {
+    private final PropertyChangeSupport propertyChangeSupport;
+    private final String property;
 
-    public ObservableSearchViewModelResultsOnSubscribe(ObservableSearchViewModel view) {
-        this.view = view;
+    public PropertyChangeListenerOnSubscribe(PropertyChangeSupport propertyChangeSupport, String property) {
+        this.propertyChangeSupport = propertyChangeSupport;
+        this.property = property;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public void call(final Subscriber<? super List<SearchResult>> subscriber) {
+    public void call(final Subscriber<? super T> subscriber) {
         final PropertyChangeListener changeListener = new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent event) {
-                if (!subscriber.isUnsubscribed() &&
-                        ObservableSearchViewModel.Property.RESULTS.name().equals(event.getPropertyName())) {
-                    List<SearchResult> newValue = (List<SearchResult>) event.getNewValue();
-                    subscriber.onNext(newValue);
+                if (!subscriber.isUnsubscribed() && property.equals(event.getPropertyName())) {
+                    subscriber.onNext((T) event.getNewValue());
                 }
             }
         };
 
-        view.addPropertyChangeListener(changeListener);
+        propertyChangeSupport.addPropertyChangeListener(changeListener);
         subscriber.add(BooleanSubscription.create(new Action0() {
             @Override
             public void call() {
-                view.removePropertyChangeListener(changeListener);
+                propertyChangeSupport.removePropertyChangeListener(changeListener);
             }
         }));
-        subscriber.onNext(view.getResults());
     }
 }
