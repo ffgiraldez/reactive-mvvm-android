@@ -21,22 +21,22 @@ import java.util.Set;
 
 import rx.Observable;
 
-public class PropertyObservableProvider {
+class PropertyObservableProvider {
     private final PropertyChangeSupport propertyChangeSupport;
     private final Set<String> properties;
 
-    public PropertyObservableProvider(
+    PropertyObservableProvider(
             Set<String> properties
     ) {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         this.properties = properties;
     }
 
-    public <T> Observable<T> provide(String property) {
+    <T> Observable<T> provide(String property) {
         return Observable.create(new PropertyChangeListenerOnSubscribe<T>(propertyChangeSupport, property));
     }
 
-    public void fireChange(String name, Object oldValue, Object newValue) {
+    void fireChange(String name, Object oldValue, Object newValue) {
         this.propertyChangeSupport.firePropertyChange(name, oldValue, newValue);
     }
 }

@@ -24,25 +24,25 @@ import rx.Subscription;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
-public class PropertySubscriber {
+class PropertySubscriber {
 
     private final CompositeSubscription disposeSubscription;
     private final Map<String, Action1<?>> actionMap;
 
-    public PropertySubscriber(Map<String, Action1<?>> actionMap) {
+    PropertySubscriber(Map<String, Action1<?>> actionMap) {
         this.actionMap = actionMap;
         this.disposeSubscription = new CompositeSubscription();
     }
 
     @SuppressWarnings("unchecked")
-    public <T> void subscribe(String property, Observable<T> observable) {
+    <T> void subscribe(String property, Observable<T> observable) {
         Action1<T> action = (Action1<T>) actionMap.get(property);
         if (action != null) {
             subscribe(observable, action);
         }
     }
 
-    public void dispose() {
+    void dispose() {
         disposeSubscription.unsubscribe();
     }
 

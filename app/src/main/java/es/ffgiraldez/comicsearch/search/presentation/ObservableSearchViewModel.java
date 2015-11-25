@@ -20,59 +20,54 @@ import com.fernandocejas.frodo.annotation.RxLogObservable;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import es.ffgiraldez.comicsearch.model.SearchResult;
 import es.ffgiraldez.comicsearch.rx.ObservableViewModel;
-import es.ffgiraldez.comicsearch.rx.PropertyObservableProvider;
-import es.ffgiraldez.comicsearch.rx.PropertySubscriber;
+import es.ffgiraldez.comicsearch.rx.PropertySubject;
 import rx.Observable;
 import rx.functions.Action1;
 
 public abstract class ObservableSearchViewModel extends AbstractSearchViewModel implements ObservableViewModel {
+
     public enum Property {QUERY, RESULTS}
 
-    private static final Set<String> PROPERTIES = new HashSet<>(Arrays.asList(
-            Property.QUERY.name(), Property.RESULTS.name()
-    ));
-
-    private final PropertyObservableProvider propertyObservableProvider;
-    private final PropertySubscriber propertySubscriber;
+    private final PropertySubject propertySubject;
 
     public ObservableSearchViewModel() {
-        this.propertyObservableProvider = new PropertyObservableProvider(PROPERTIES);
-        this.propertySubscriber = new PropertySubscriber(createPropertyActionMapping());
+        this.propertySubject = new PropertySubject(
+                Arrays.asList(Property.QUERY.name(), Property.RESULTS.name()),
+                createPropertyActionMapping()
+        );
     }
 
     @Override
     public void dispose() {
-        propertySubscriber.dispose();
+        propertySubject.dispose();
     }
 
     @RxLogObservable
     public <T> Observable<T> observe(Property property) {
-        return propertyObservableProvider.provide(property.name());
+        return propertySubject.observe(property.name());
     }
 
-    public void subscribe(Property property, Observable<?> observable) {
-        propertySubscriber.subscribe(property.name(), observable);
+    public <T> void subscribe(Property property, Observable<T> observable) {
+        propertySubject.subscribe(property.name(), observable);
     }
 
     @Override
     public void setQuery(String query) {
         String oldQuery = getQuery();
         super.setQuery(query);
-        propertyObservableProvider.fireChange(Property.QUERY.name(), oldQuery, query);
+        propertySubject.fireChange(Property.QUERY.name(), oldQuery, query);
     }
 
     @Override
     public void setResults(List<SearchResult> results) {
         List<SearchResult> oldSuggestions = getResults();
         super.setResults(results);
-        propertyObservableProvider.fireChange(Property.RESULTS.name(), oldSuggestions, results);
+        propertySubject.fireChange(Property.RESULTS.name(), oldSuggestions, results);
     }
 
     private Map<String, Action1<?>> createPropertyActionMapping() {

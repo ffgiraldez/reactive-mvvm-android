@@ -25,11 +25,11 @@ import rx.Subscriber;
 import rx.functions.Action0;
 import rx.subscriptions.BooleanSubscription;
 
-public class PropertyChangeListenerOnSubscribe<T> implements Observable.OnSubscribe<T> {
+class PropertyChangeListenerOnSubscribe<T> implements Observable.OnSubscribe<T> {
     private final PropertyChangeSupport propertyChangeSupport;
     private final String property;
 
-    public PropertyChangeListenerOnSubscribe(PropertyChangeSupport propertyChangeSupport, String property) {
+    PropertyChangeListenerOnSubscribe(PropertyChangeSupport propertyChangeSupport, String property) {
         this.propertyChangeSupport = propertyChangeSupport;
         this.property = property;
     }
