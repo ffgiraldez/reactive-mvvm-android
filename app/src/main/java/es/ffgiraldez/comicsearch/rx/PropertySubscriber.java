@@ -16,6 +16,8 @@
 
 package es.ffgiraldez.comicsearch.rx;
 
+import java.util.Map;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -25,16 +27,19 @@ import rx.subscriptions.CompositeSubscription;
 public class PropertySubscriber {
 
     private final CompositeSubscription disposeSubscription;
-    private final PropertyActionBuilder actionPropertyBuilder;
+    private final Map<String, Action1<?>> actionMap;
 
-    public PropertySubscriber(PropertyActionBuilder propertyActionBuilder) {
-        this.actionPropertyBuilder = propertyActionBuilder;
+    public PropertySubscriber(Map<String, Action1<?>> actionMap) {
+        this.actionMap = actionMap;
         this.disposeSubscription = new CompositeSubscription();
     }
 
+    @SuppressWarnings("unchecked")
     public <T> void subscribe(String property, Observable<T> observable) {
-        Action1<T> action = actionPropertyBuilder.build(property);
-        subscribe(observable, action);
+        Action1<T> action = (Action1<T>) actionMap.get(property);
+        if (action != null) {
+            subscribe(observable, action);
+        }
     }
 
     public void dispose() {
