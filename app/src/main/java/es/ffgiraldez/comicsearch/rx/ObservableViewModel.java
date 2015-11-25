@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.ffgiraldez.comicsearch.ui.binding;
+package es.ffgiraldez.comicsearch.rx;
 
 public interface ObservableViewModel {
 

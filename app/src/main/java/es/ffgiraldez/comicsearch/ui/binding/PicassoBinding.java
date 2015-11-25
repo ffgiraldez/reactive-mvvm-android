@@ -23,7 +23,7 @@ import android.widget.ImageView;
 
 public class PicassoBinding {
 
-    @BindingAdapter("app:image")
+    @BindingAdapter("image")
     public static void bindImage(ImageView imageView, String url) {
         Picasso.with(imageView.getContext()).load(url).into(imageView);
     }

@@ -19,19 +19,21 @@ package es.ffgiraldez.comicsearch.ui.binding;
 import android.databinding.BindingAdapter;
 import android.view.View;
 
+import es.ffgiraldez.comicsearch.rx.ObservableViewModel;
+
 public class ObservableViewModelBinding {
 
-    @BindingAdapter("app:bind")
+    @BindingAdapter("bind")
     public static void bindViewModelToLifeCycle(View root, ObservableViewModel viewModel) {
         bind(root, viewModel);
     }
 
-    @BindingAdapter("app:bind1")
+    @BindingAdapter("bind1")
     public static void bind1ViewModelToLifeCycle(View root, ObservableViewModel viewModel) {
         bind(root, viewModel);
     }
 
-    @BindingAdapter("app:bind2")
+    @BindingAdapter("bind2")
     public static void bind2ViewModelToLifeCycle(View root, ObservableViewModel viewModel) {
         bind(root, viewModel);
     }

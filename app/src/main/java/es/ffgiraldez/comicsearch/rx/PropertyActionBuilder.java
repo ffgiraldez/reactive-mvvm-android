@@ -14,27 +14,22 @@
  * limitations under the License.
  */
 
-package es.ffgiraldez.comicsearch.ui.binding;
+package es.ffgiraldez.comicsearch.rx;
 
-import android.view.View;
+import java.util.Map;
 
-import es.ffgiraldez.comicsearch.rx.ObservableViewModel;
+import rx.functions.Action1;
 
-public class DisposeOnDetachedStateChangeListener implements View.OnAttachStateChangeListener {
+public class PropertyActionBuilder {
 
-    private final ObservableViewModel viewModel;
+    private final Map<String, Action1<?>> actionMap;
 
-    public DisposeOnDetachedStateChangeListener(ObservableViewModel viewModel) {
-        this.viewModel = viewModel;
+    public PropertyActionBuilder(Map<String, Action1<?>> actionMap) {
+        this.actionMap = actionMap;
     }
 
-    @Override
-    public void onViewAttachedToWindow(View v) {
-
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(View v) {
-        viewModel.dispose();
+    @SuppressWarnings("unchecked")
+    public <T> Action1<T> build(String property) {
+        return (Action1<T>) actionMap.get(property);
     }
 }
