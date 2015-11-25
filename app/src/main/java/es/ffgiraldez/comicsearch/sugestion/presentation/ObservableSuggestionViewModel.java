@@ -20,14 +20,11 @@ import com.fernandocejas.frodo.annotation.RxLogObservable;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import es.ffgiraldez.comicsearch.rx.ObservableViewModel;
-import es.ffgiraldez.comicsearch.rx.PropertyObservableProvider;
-import es.ffgiraldez.comicsearch.rx.PropertySubscriber;
+import es.ffgiraldez.comicsearch.rx.PropertySubject;
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -35,45 +32,42 @@ public abstract class ObservableSuggestionViewModel extends AbstractSuggestionVi
 
     public enum Property {QUERY, SUGGESTIONS}
 
-    private static final Set<String> PROPERTIES = new HashSet<>(Arrays.asList(
-            Property.QUERY.name(), Property.SUGGESTIONS.name()
-    ));
-
-    private final PropertyObservableProvider propertyObservableProvider;
-    private final PropertySubscriber propertySubscriber;
+    private final PropertySubject propertySubject;
 
     public ObservableSuggestionViewModel() {
-        propertyObservableProvider = new PropertyObservableProvider(PROPERTIES);
-        propertySubscriber = new PropertySubscriber(createActionMapping());
+        this.propertySubject = new PropertySubject(
+                Arrays.asList(Property.QUERY.name(), Property.SUGGESTIONS.name()),
+                createPropertyActionMapping()
+        );
     }
 
     @Override
     public void dispose() {
-        propertySubscriber.dispose();
+        propertySubject.dispose();
     }
 
     @RxLogObservable
     public <T> Observable<T> observe(Property property) {
-        return propertyObservableProvider.provide(property.name());
+        return propertySubject.observe(property.name());
     }
 
     public <T> void subscribe(Property property, Observable<T> observable) {
-        propertySubscriber.subscribe(property.name(), observable);
+        propertySubject.subscribe(property.name(), observable);
     }
 
     public void setQuery(String query) {
         String oldQuery = this.query;
         this.query = query;
-        propertyObservableProvider.fireChange(Property.QUERY.name(), oldQuery, query);
+        propertySubject.fireChange(Property.QUERY.name(), oldQuery, query);
     }
 
     public void setSuggestions(List<String> suggestions) {
         List<String> oldSuggestions = this.suggestions;
         this.suggestions = suggestions;
-        propertyObservableProvider.fireChange(Property.SUGGESTIONS.name(), oldSuggestions, suggestions);
+        propertySubject.fireChange(Property.SUGGESTIONS.name(), oldSuggestions, suggestions);
     }
 
-    private Map<String, Action1<?>> createActionMapping() {
+    private Map<String, Action1<?>> createPropertyActionMapping() {
         Map<String, Action1<?>> actionMap = new HashMap<>();
         actionMap.put(
                 Property.QUERY.name(),
