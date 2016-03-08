@@ -42,7 +42,7 @@ public class SuggestionViewModel extends ObservableSuggestionViewModel {
         subscribe(Property.SUGGESTIONS, suggestionObservable);
 
         Observable<List<String>> suggestionPropObservable = observe(Property.SUGGESTIONS);
-        updatedSuggestionsObservable = suggestionPropObservable.map(new ReplaceToVoid<List<String>>());
+        updatedSuggestionsObservable = suggestionPropObservable.map(ReplaceToVoid.returnVoid());
     }
 
     public Observable<Void> didUpdateSuggestion() {
