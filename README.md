@@ -49,7 +49,7 @@ License
     
 [1]: https://en.wikipedia.org/wiki/Model_View_ViewModel
 [2]: http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html
-[3]: http://developer.android.com/intl/es/tools/data-binding/guide.html
+[3]: https://developer.android.com/topic/libraries/data-binding/index.html
 [4]: http://reactivex.io/
 [5]: http://www.comicvine.com/api/
 [6]: https://github.com/android10/frodo
