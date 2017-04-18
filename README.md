@@ -1,8 +1,8 @@
-#RxMVVM
+# RxMVVM
 
 My way to MVVM using RxJava with new Android databinding
 
-##Summary
+## Summary
 * Use [MVVM][1] to separate Android Framework with a [clean architecture][2] to my domain logic.
 * Use [Android Databinding][3] to glue view model and Android
 * Asynchronous communications implemented with [Rx][4].
