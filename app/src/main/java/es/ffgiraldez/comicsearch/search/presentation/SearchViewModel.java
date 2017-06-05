@@ -40,7 +40,7 @@ public class SearchViewModel extends ObservableSearchViewModel {
 
         subscribe(Property.RESULTS, fetchResultObservable);
         Observable<List<String>> resultsObservable = observe(Property.RESULTS);
-        updatedResultsObservable = resultsObservable.map(new ReplaceToVoid<List<String>>());
+        updatedResultsObservable = resultsObservable.map(ReplaceToVoid.returnVoid());
     }
 
     public Observable<Void> didUpdateResults() {

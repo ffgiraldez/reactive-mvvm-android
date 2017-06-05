@@ -18,9 +18,15 @@ package es.ffgiraldez.comicsearch;
 
 import rx.functions.Func1;
 
-public class ReplaceToVoid<T> implements Func1<T, Void> {
+public class ReplaceToVoid implements Func1<Object, Void> {
     @Override
-    public Void call(T t) {
+    public Void call(Object t) {
         return null;
     }
+
+    public static ReplaceToVoid returnVoid() {
+        return INSTANCE;
+    }
+
+    private static final ReplaceToVoid INSTANCE = new ReplaceToVoid();
 }
