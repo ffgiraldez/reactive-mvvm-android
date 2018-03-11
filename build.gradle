@@ -2,18 +2,20 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath "com.fernandocejas.frodo:frodo-plugin:0.8.1"
+        apply from: 'dependencies.gradle'
+        classpath build_plugins.android_gradle
+        classpath build_plugins.kotlin_gradle
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        maven { url 'http://oss.sonatype.org/content/repositories/snapshots' }
+        google()
     }
 }
 

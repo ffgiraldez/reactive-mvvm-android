@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package es.ffgiraldez.comicsearch.ui;
+package es.ffgiraldez.comicsearch.detail
 
-public class EmptyMultiChoiceClickListener implements MultiChoiceClickListener {
-    @Override
-    public void onItemClick(int position) {
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 
-    }
+import es.ffgiraldez.comicsearch.R
 
-    @Override
-    public void onItemSelected(int position) {
+class DetailActivity : AppCompatActivity() {
 
-    }
-
-    @Override
-    public void onItemLongClick(int position) {
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.detail_activity)
     }
 }

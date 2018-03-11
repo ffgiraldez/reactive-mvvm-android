@@ -1,0 +1,31 @@
+/* Contains all dependencies definitions used in project.
+ * Please keep them organized in alphabetic order. */
+
+ext {
+    build_tools = "26.0.2"
+    compile_sdk = 26
+    min_sdk = 22
+    target_sdk = 22
+
+    versions = [
+            android_plugin: '3.0.1',
+            kotlin        : '1.2.30',
+            support       : '26.1.0',
+    ]
+
+    build_plugins = [
+            android_gradle: [group: 'com.android.tools.build', name: 'gradle', version: versions.android_plugin],
+            kotlin_gradle : [group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: versions.kotlin]
+    ]
+
+    libs = [
+
+            cardview            : [group: 'com.android.support', name: 'cardview-v7', version: versions.support],
+            constraint          : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
+            databinding_compiler: [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
+            design              : [group: 'com.android.support', name: 'design', version: versions.support],
+            kotlin_stdlib       : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin]
+    ]
+
+}
+
