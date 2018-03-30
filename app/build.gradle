@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -21,14 +22,25 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     dataBinding {
         enabled = true
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -38,7 +50,18 @@ dependencies {
     implementation libs.cardview
     implementation libs.constraint
     implementation libs.design
+    implementation libs.floating_search
+    implementation libs.koin
+    implementation libs.koin_android
+    implementation libs.koin_architecture
     implementation libs.kotlin_stdlib
+    implementation libs.arch_comp_livedata
+    implementation libs.arch_comp_viewmodel
+    implementation libs.arch_comp_reactive
+    implementation libs.retrofit
+    implementation libs.retrofit_gson
+    implementation libs.retrofit_rx_java
+    implementation libs.rx_java
 }
 repositories {
     mavenCentral()

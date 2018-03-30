@@ -2,15 +2,17 @@
  * Please keep them organized in alphabetic order. */
 
 ext {
-    build_tools = "26.0.2"
     compile_sdk = 26
     min_sdk = 22
     target_sdk = 22
 
     versions = [
-            android_plugin: '3.0.1',
-            kotlin        : '1.2.30',
-            support       : '26.1.0',
+            architecture_components: '1.1.1',
+            android_plugin         : '3.1.0',
+            koin                   : '0.9.1',
+            kotlin                 : '1.2.31',
+            retrofit               : '2.4.0',
+            support                : '27.1.0',
     ]
 
     build_plugins = [
@@ -24,7 +26,18 @@ ext {
             constraint          : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
             databinding_compiler: [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
             design              : [group: 'com.android.support', name: 'design', version: versions.support],
-            kotlin_stdlib       : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin]
+            floating_search     : [group: 'com.github.arimorty', name: 'floatingsearchview', version: '2.1.1'],
+            koin                : [group: 'org.koin', name: 'koin-core', version: versions.koin],
+            koin_android        : [group: 'org.koin', name: 'koin-android', version: versions.koin],
+            koin_architecture   : [group: 'org.koin', name: 'koin-android-architecture', version: versions.koin],
+            kotlin_stdlib       : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin],
+            arch_comp_livedata  : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.architecture_components],
+            arch_comp_viewmodel : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.architecture_components],
+            arch_comp_reactive  : [group: 'android.arch.lifecycle', name: 'reactivestreams', version: versions.architecture_components],
+            retrofit            : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
+            retrofit_gson       : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
+            retrofit_rx_java    : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: versions.retrofit],
+            rx_java             : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.10']
     ]
 
 }
