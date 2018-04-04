@@ -1,4 +1,4 @@
-package es.ffgiraldez.comicsearch.sugestion.data
+package es.ffgiraldez.comicsearch.comics.data
 
 import io.reactivex.Single
 import retrofit2.http.GET

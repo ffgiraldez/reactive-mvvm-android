@@ -1,4 +1,4 @@
-package es.ffgiraldez.comicsearch.sugestion.data
+package es.ffgiraldez.comicsearch.comics.data
 
 import com.google.gson.annotations.SerializedName
 
@@ -20,15 +20,15 @@ data class SuggestionVolume(
 )
 
 data class ApiVolume(
-        @SerializedName("name") var name: String?,
+        @SerializedName("name") var name: String,
         @SerializedName("publisher") var apiPublisher: ApiPublisher,
         @SerializedName("image") var apiImage: ApiImage
 )
 
 data class ApiImage(
-        @SerializedName("thumb_url") val url: String?
+        @SerializedName("thumb_url") val url: String
 )
 
 data class ApiPublisher(
-        @SerializedName("name") val name: String?
+        @SerializedName("name") val name: String
 )

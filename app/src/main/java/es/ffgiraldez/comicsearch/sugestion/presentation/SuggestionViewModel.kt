@@ -4,8 +4,8 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
+import es.ffgiraldez.comicsearch.comics.ComicRepository
 import es.ffgiraldez.comicsearch.platform.toObservable
-import es.ffgiraldez.comicsearch.sugestion.domain.ComicRepository
 import java.util.concurrent.TimeUnit
 
 class SuggestionViewModel(
@@ -23,14 +23,8 @@ class SuggestionViewModel(
                 .doOnNext { loading.postValue(true) }
                 .doOnNext { results.postValue(emptyList()) }
                 .flatMapSingle { repo.searchSuggestion(it) }
-                .map { response ->
-                    response.results
-                            .distinctBy { it.name }
-                            .map {
-                                it.name
-                            }
-                }
-                .doOnSubscribe { loading.postValue(false) }
+                .doOnSubscribe { loading.value = false }
+                .doOnSubscribe { results.value = emptyList() }
                 .doOnNext { loading.postValue(false) }
                 .subscribe {
                     Log.d("cambio", "$it")
