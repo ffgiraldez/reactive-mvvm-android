@@ -54,6 +54,8 @@ dependencies {
     implementation libs.constraint
     implementation libs.design
     implementation libs.floating_search
+    implementation libs.okhttp
+    implementation libs.okhttp_logging
     implementation libs.koin
     implementation libs.koin_android
     implementation libs.koin_architecture
