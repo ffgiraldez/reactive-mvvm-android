@@ -8,17 +8,40 @@
             name="suggestionViewModel"
             type="es.ffgiraldez.comicsearch.sugestion.presentation.SuggestionViewModel" />
 
+        <variable
+            name="searchViewModel"
+            type="es.ffgiraldez.comicsearch.search.presentation.SearchViewModel" />
+
+        <variable
+            name="adapter"
+            type="es.ffgiraldez.comicsearch.search.ui.SearchVolumeAdapter" />
+
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="72dp"
+            app:adapter="@{adapter}"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 
+            app:on_data_change="@{searchViewModel.results}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:gone='@{!searchViewModel.loading}'/>
         <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/suggestions_input"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:floatingSearch_close_search_on_keyboard_dismiss="false"
             app:floatingSearch_leftActionMode="showSearch"
             app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
@@ -27,10 +50,11 @@
             app:floatingSearch_searchHint="Search..."
             app:floatingSearch_showSearchKey="false"
             app:floatingSearch_suggestionsListAnimDuration="250"
+            app:on_change='@{(old, new) -> suggestionViewModel.onQueryChange(new)}'
+            app:on_suggestion_click='@{(suggestion) -> searchViewModel.onSuggestionSelected(suggestion.body)}'
             app:show_progress='@{suggestionViewModel.loading}'
-            app:suggestions='@{suggestionViewModel.results}'
-            app:on_change='@{(old, new) -> suggestionViewModel.onQueryChange(new)}' />
+            app:suggestions='@{suggestionViewModel.results}' />
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
 </layout>

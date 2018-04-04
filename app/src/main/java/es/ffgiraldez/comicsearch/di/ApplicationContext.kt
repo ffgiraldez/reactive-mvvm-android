@@ -1,9 +1,9 @@
 package es.ffgiraldez.comicsearch.di
 
-import es.ffgiraldez.comicsearch.sugestion.data.ComicVineApi
-import es.ffgiraldez.comicsearch.sugestion.domain.ComicRepository
+import es.ffgiraldez.comicsearch.comics.ComicRepository
+import es.ffgiraldez.comicsearch.comics.data.ComicVineApi
+import es.ffgiraldez.comicsearch.search.presentation.SearchViewModel
 import es.ffgiraldez.comicsearch.sugestion.presentation.SuggestionViewModel
-import okhttp3.OkHttpClient
 import org.koin.dsl.module.applicationContext
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,6 +19,7 @@ val comicContext = applicationContext {
                 .build()
                 .create(ComicVineApi::class.java)
     }
-    bean { ComicRepository(get())}
+    bean { ComicRepository(get()) }
     bean { params -> SuggestionViewModel(params["lifecycle"], get()) }
+    bean { params -> SearchViewModel(params["lifecycle"], get()) }
 }

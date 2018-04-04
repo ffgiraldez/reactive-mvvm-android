@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="volume"
+            type="es.ffgiraldez.comicsearch.comics.Volume" />
+
+    </data>
+
+    <LinearLayout
+
+        android:id="@+id/item_comic_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp">
+
+        <ImageView
+            android:id="@+id/item_comic_cover"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            app:image='@{volume.cover}' />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_comic_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{volume.title}' />
+
+            <TextView
+                android:id="@+id/item_comic_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{volume.author}' />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
