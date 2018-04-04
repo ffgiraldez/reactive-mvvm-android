@@ -40,7 +40,8 @@ ext {
             retrofit            : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
             retrofit_gson       : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
             retrofit_rx_java    : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: versions.retrofit],
-            rx_java             : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.10']
+            rx_java             : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.10'],
+            rx_android          : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.0.2']
     ]
 
 }

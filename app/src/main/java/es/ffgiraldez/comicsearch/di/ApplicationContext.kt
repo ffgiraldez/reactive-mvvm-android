@@ -28,6 +28,6 @@ val comicContext = applicationContext {
                 .create(ComicVineApi::class.java)
     }
     bean { ComicRepository(get()) }
-    bean { params -> SuggestionViewModel(params["lifecycle"], get()) }
-    bean { params -> SearchViewModel(params["lifecycle"], get()) }
+    bean { SuggestionViewModel(get()) }
+    bean { SearchViewModel(get()) }
 }

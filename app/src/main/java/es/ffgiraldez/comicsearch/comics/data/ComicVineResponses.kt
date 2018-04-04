@@ -21,8 +21,8 @@ data class SuggestionVolume(
 
 data class ApiVolume(
         @SerializedName("name") var name: String,
-        @SerializedName("publisher") var apiPublisher: ApiPublisher,
-        @SerializedName("image") var apiImage: ApiImage
+        @SerializedName("publisher") var apiPublisher: ApiPublisher?,
+        @SerializedName("image") var apiImage: ApiImage?
 )
 
 data class ApiImage(

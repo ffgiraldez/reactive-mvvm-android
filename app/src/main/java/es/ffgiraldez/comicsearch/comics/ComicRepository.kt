@@ -19,9 +19,11 @@ class ComicRepository(
     fun searchVolume(query: String): Single<List<Volume>> = api.fetchVolumes(query)
             .subscribeOn(Schedulers.io())
             .map { response ->
-                response.results.map {
-                    Volume(it.name, it.apiPublisher.name, it.apiImage.url)
-                }
+                response.results
+                        .filter { it.apiPublisher != null && it.apiImage != null }
+                        .map {
+                            Volume(it.name, it.apiPublisher!!.name, it.apiImage!!.url)
+                        }
             }
             .subscribeOn(Schedulers.computation())
 }

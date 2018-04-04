@@ -1,6 +1,5 @@
 package es.ffgiraldez.comicsearch.search.presentation
 
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
@@ -9,7 +8,6 @@ import es.ffgiraldez.comicsearch.comics.Volume
 import es.ffgiraldez.comicsearch.platform.toObservable
 
 class SearchViewModel(
-        private val lifecycleOwner: LifecycleOwner,
         private val repo: ComicRepository
 ) : ViewModel() {
 
@@ -19,10 +17,10 @@ class SearchViewModel(
 
     init {
 
-        query.toObservable(lifecycleOwner)
+        query.toObservable()
                 .doOnNext { loading.postValue(true) }
                 .doOnNext { results.postValue(emptyList()) }
-                .flatMapSingle { repo.searchVolume(it) }
+                .switchMapSingle { repo.searchVolume(it) }
                 .doOnSubscribe { loading.value = false }
                 .doOnSubscribe { results.value = emptyList() }
                 .doOnNext { loading.postValue(false) }

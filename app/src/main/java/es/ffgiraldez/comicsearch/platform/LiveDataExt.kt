@@ -1,9 +1,21 @@
 package es.ffgiraldez.comicsearch.platform
 
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.LiveDataReactiveStreams
+import android.arch.lifecycle.Observer
 import io.reactivex.Observable
+import io.reactivex.android.MainThreadDisposable
 
-fun <T> LiveData<T>.toObservable(lifecycleOwner: LifecycleOwner): Observable<T> =
-        Observable.fromPublisher(LiveDataReactiveStreams.toPublisher(lifecycleOwner, this))
+fun <T> LiveData<T>.toObservable(): Observable<T> =
+        Observable.create { emitter ->
+            val observer = Observer<T> {
+                it?.let { emitter.onNext(it) }
+            }
+            this@toObservable.observeForever(observer)
+
+            emitter.setCancellable {
+                object : MainThreadDisposable() {
+
+                    override fun onDispose() = removeObserver(observer)
+                }
+            }
+        }
