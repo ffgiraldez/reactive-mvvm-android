@@ -21,7 +21,9 @@ ext {
     ]
 
     libs = [
-
+            arch_comp_livedata  : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.architecture_components],
+            arch_comp_viewmodel : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.architecture_components],
+            arch_comp_reactive  : [group: 'android.arch.lifecycle', name: 'reactivestreams', version: versions.architecture_components],
             cardview            : [group: 'com.android.support', name: 'cardview-v7', version: versions.support],
             constraint          : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
             databinding_compiler: [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
@@ -31,9 +33,7 @@ ext {
             koin_android        : [group: 'org.koin', name: 'koin-android', version: versions.koin],
             koin_architecture   : [group: 'org.koin', name: 'koin-android-architecture', version: versions.koin],
             kotlin_stdlib       : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin],
-            arch_comp_livedata  : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.architecture_components],
-            arch_comp_viewmodel : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.architecture_components],
-            arch_comp_reactive  : [group: 'android.arch.lifecycle', name: 'reactivestreams', version: versions.architecture_components],
+            picasso             : [group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'],
             retrofit            : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
             retrofit_gson       : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
             retrofit_rx_java    : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: versions.retrofit],

@@ -47,6 +47,9 @@ android {
 dependencies {
     kapt libs.databinding_compiler
 
+    implementation libs.arch_comp_livedata
+    implementation libs.arch_comp_viewmodel
+    implementation libs.arch_comp_reactive
     implementation libs.cardview
     implementation libs.constraint
     implementation libs.design
@@ -55,9 +58,7 @@ dependencies {
     implementation libs.koin_android
     implementation libs.koin_architecture
     implementation libs.kotlin_stdlib
-    implementation libs.arch_comp_livedata
-    implementation libs.arch_comp_viewmodel
-    implementation libs.arch_comp_reactive
+    implementation libs.picasso
     implementation libs.retrofit
     implementation libs.retrofit_gson
     implementation libs.retrofit_rx_java
