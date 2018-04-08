@@ -66,6 +66,9 @@ dependencies {
     implementation libs.retrofit_rx_java
     implementation libs.rx_java
     implementation libs.rx_android
+
+    testImplementation libs.junit
+    testImplementation libs.koin_test
 }
 repositories {
     mavenCentral()

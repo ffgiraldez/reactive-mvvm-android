@@ -18,6 +18,11 @@ allprojects {
         jcenter()
         google()
     }
+    tasks.withType(Test) {
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
 }
 
 task clean(type: Delete) {
