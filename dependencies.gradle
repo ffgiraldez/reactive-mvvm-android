@@ -2,9 +2,9 @@
  * Please keep them organized in alphabetic order. */
 
 ext {
-    compile_sdk = 26
-    min_sdk = 22
-    target_sdk = 22
+    compile_sdk = 27
+    min_sdk = 21
+    target_sdk = 27
 
     versions = [
             architecture_components: '1.1.1',
