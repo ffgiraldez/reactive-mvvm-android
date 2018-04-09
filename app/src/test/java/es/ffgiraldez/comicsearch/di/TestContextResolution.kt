@@ -1,5 +1,7 @@
 package es.ffgiraldez.comicsearch.di
 
+import android.content.Context
+import com.nhaarman.mockito_kotlin.mock
 import org.junit.Test
 import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.test.KoinTest
@@ -11,6 +13,6 @@ class TestContextResolution : KoinTest {
         // start Koin
         startKoin(listOf(comicContext))
         // dry run of given module list
-        dryRun()
+        dryRun(defaultParameters = { mapOf(ACTIVITY_PARAM to mock<Context> {}) })
     }
 }

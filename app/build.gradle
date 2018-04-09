@@ -69,6 +69,7 @@ dependencies {
 
     testImplementation libs.junit
     testImplementation libs.koin_test
+    testImplementation libs.mockito_kotlin
 }
 repositories {
     mavenCentral()
