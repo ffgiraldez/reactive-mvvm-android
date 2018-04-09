@@ -29,7 +29,4 @@ class SuggestionViewModel(
                     results.postValue(it)
                 }
     }
-
-    fun onQueryChange(new: String) = with(query) { value = new }
-
 }

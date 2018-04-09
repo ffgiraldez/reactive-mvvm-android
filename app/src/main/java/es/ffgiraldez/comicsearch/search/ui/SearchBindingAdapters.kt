@@ -26,11 +26,12 @@ fun bindSuggestionClick(search: FloatingSearchView, clickConsumer: ClickConsumer
 /**
  * Limit scope to apply using RecyclerView as BindingAdapter
  */
-@BindingAdapter("adapter", "on_data_change")
-fun bindData(recycler: RecyclerView, searchAdapter: SearchVolumeAdapter, data: List<Volume>) =
+@BindingAdapter("adapter", "on_data_change", "on_selected", requireAll = false)
+fun bindData(recycler: RecyclerView, searchAdapter: SearchVolumeAdapter, data: List<Volume>, consumer: OnVolumeSelectedListener) =
         with(recycler) {
             if (adapter == null) {
                 adapter = searchAdapter
+                searchAdapter.onVolumeSelectedListener = consumer
             }
             searchAdapter.submitList(data)
         }

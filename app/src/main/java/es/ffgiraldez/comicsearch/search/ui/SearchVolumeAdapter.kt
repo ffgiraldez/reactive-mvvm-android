@@ -10,6 +10,8 @@ import es.ffgiraldez.comicsearch.databinding.SearchItemBinding
 
 class SearchVolumeAdapter : ListAdapter<Volume, SearchVolumeViewHolder>(asyncDiff) {
 
+    var onVolumeSelectedListener: OnVolumeSelectedListener? = null
+
     companion object {
         val asyncDiff: DiffUtil.ItemCallback<Volume> = object : DiffUtil.ItemCallback<Volume>() {
             override fun areItemsTheSame(oldItem: Volume, newItem: Volume): Boolean = oldItem.title == newItem.title
@@ -26,7 +28,12 @@ class SearchVolumeAdapter : ListAdapter<Volume, SearchVolumeViewHolder>(asyncDif
 
     override fun onBindViewHolder(holder: SearchVolumeViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener { onVolumeSelectedListener?.onVolumeSelected(getItem(position)) }
     }
+}
+
+interface OnVolumeSelectedListener {
+    fun onVolumeSelected(volume: Volume)
 }
 
 

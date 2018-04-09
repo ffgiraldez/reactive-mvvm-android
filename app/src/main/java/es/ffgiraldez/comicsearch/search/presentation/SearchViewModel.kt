@@ -16,7 +16,6 @@ class SearchViewModel(
     val results: MutableLiveData<List<Volume>> = MutableLiveData()
 
     init {
-
         query.toObservable()
                 .doOnNext { loading.postValue(true) }
                 .doOnNext { results.postValue(emptyList()) }
@@ -29,6 +28,4 @@ class SearchViewModel(
                     Log.d("cambio", "busqueda completa [${it.size}] volumenes encontrados")
                 }
     }
-
-    fun onSuggestionSelected(suggestion: String) = with(query) { value = suggestion }
 }

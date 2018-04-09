@@ -5,16 +5,8 @@
     <data>
 
         <variable
-            name="suggestionViewModel"
-            type="es.ffgiraldez.comicsearch.sugestion.presentation.SuggestionViewModel" />
-
-        <variable
-            name="searchViewModel"
-            type="es.ffgiraldez.comicsearch.search.presentation.SearchViewModel" />
-
-        <variable
-            name="adapter"
-            type="es.ffgiraldez.comicsearch.search.ui.SearchVolumeAdapter" />
+            name="delegate"
+            type="es.ffgiraldez.comicsearch.search.ui.SearchScreenDelegate" />
 
     </data>
 
@@ -22,22 +14,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="72dp"
-            app:adapter="@{adapter}"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-
-            app:on_data_change="@{searchViewModel.results}" />
+            app:adapter="@{ delegate.adapter }"
+            app:on_data_change="@{ delegate.search.results }"
+            app:on_selected="@{ (volume) -> delegate.onVolumeSelected(volume) }" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:gone='@{!searchViewModel.loading}'/>
+            app:gone='@{ !delegate.search.loading }' />
+
         <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/suggestions_input"
             android:layout_width="match_parent"
@@ -50,10 +44,10 @@
             app:floatingSearch_searchHint="Search..."
             app:floatingSearch_showSearchKey="false"
             app:floatingSearch_suggestionsListAnimDuration="250"
-            app:on_change='@{(old, new) -> suggestionViewModel.onQueryChange(new)}'
-            app:on_suggestion_click='@{(suggestion) -> searchViewModel.onSuggestionSelected(suggestion.body)}'
-            app:show_progress='@{suggestionViewModel.loading}'
-            app:suggestions='@{suggestionViewModel.results}' />
+            app:on_change='@{ (old, new) -> delegate.onQueryChange(new) }'
+            app:on_suggestion_click='@{ (suggestion) -> delegate.onSuggestionSelected(suggestion.body) }'
+            app:show_progress='@{ delegate.suggestions.loading }'
+            app:suggestions='@{ delegate.suggestions.results }' />
 
 
     </FrameLayout>
