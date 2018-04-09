@@ -17,8 +17,8 @@ class SearchScreenDelegate(
     }
 
     fun onQueryChange(new: String) =
-            with(search) { query.value = new }
+            with(suggestions) { query.value = new }
 
     fun onSuggestionSelected(suggestion: String) =
-            with(suggestions) { query.value = suggestion }
+            with(search) { query.value = suggestion }
 }
