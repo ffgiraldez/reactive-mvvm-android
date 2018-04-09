@@ -3,19 +3,25 @@
 My way to MVVM using RxJava with new Android databinding
 
 ## Summary
-* Use [MVVM][1] to separate Android Framework with a [clean architecture][2] to my domain logic.
+* Use [MVVM][1] using [architecture components][6] with to separate Android Framework with a [clean architecture][2] to my domain logic.
 * Use [Android Databinding][3] to glue view model and Android
 * Asynchronous communications implemented with [Rx][4].
 * Rest API from [ComicVine][5]
-* Use [Frodo][6] to debug Rx
+
+## Dependencies
+* architecture components
+* rx-java
+* floating search
+* okhttp
+* retrofit
+* koin
+* picasso
 
 TODO LIST
 ---------
 
 * Better UI, with Material Design concepts and so on
-* Add unit tests, allways fail on that :(
-* Add Dependency Injection
-* [WIP] Implement an Annotation processor to remove most of the View Model boilerplate code 
+* Add unit tests, allways fail on that :( 
 * Implement a local datasource with Realm to test it
 
 
@@ -25,10 +31,10 @@ Developed By
 Fernando Franco Giráldez - <ffrancogiraldez@gmail.com>
 
 <a href="https://twitter.com/thanerian">
-  <img alt="Follow me on Twitter" src="http://imageshack.us/a/img812/3923/smallth.png" />
+  <img alt="Follow me on Twitter" src="/images/twitter_icon.png" height="128"/>
 </a>
 <a href="http://es.linkedin.com/pub/fernando-franco-giraldez/22/803/b44/es">
-  <img alt="Add me to Linkedin" src="http://imageshack.us/a/img41/7877/smallld.png" />
+  <img alt="Add me to Linkedin" src="/images/linkedin_icon.png" height="128"/>
 </a>
 
 License
@@ -52,4 +58,4 @@ License
 [3]: https://developer.android.com/topic/libraries/data-binding/index.html
 [4]: http://reactivex.io/
 [5]: http://www.comicvine.com/api/
-[6]: https://github.com/android10/frodo
+[6]: https://developer.android.com/topic/libraries/architecture/index.html
