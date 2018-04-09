@@ -19,8 +19,8 @@ package es.ffgiraldez.comicsearch.sugestion.presentation;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import es.ffgiraldez.comicsearch.ReplaceToVoid;
 import es.ffgiraldez.comicsearch.data.ComicStorage;
+import es.ffgiraldez.comicsearch.rx.Replacements;
 import es.ffgiraldez.comicsearch.sugestion.domain.FetchQueryTransformer;
 import rx.Observable;
 
@@ -32,6 +32,7 @@ public class SuggestionViewModel extends ObservableSuggestionViewModel {
     public SuggestionViewModel(ComicStorage comicStorage) {
         this.comicStorage = comicStorage;
     }
+
     @Override
     public void initialize() {
         Observable<String> input = this.<String>observe(Property.QUERY)
@@ -42,7 +43,7 @@ public class SuggestionViewModel extends ObservableSuggestionViewModel {
         subscribe(Property.SUGGESTIONS, suggestionObservable);
 
         Observable<List<String>> suggestionPropObservable = observe(Property.SUGGESTIONS);
-        updatedSuggestionsObservable = suggestionPropObservable.map(new ReplaceToVoid<List<String>>());
+        updatedSuggestionsObservable = suggestionPropObservable.map(Replacements.returnVoid());
     }
 
     public Observable<Void> didUpdateSuggestion() {

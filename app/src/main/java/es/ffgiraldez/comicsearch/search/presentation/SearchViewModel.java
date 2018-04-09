@@ -18,9 +18,9 @@ package es.ffgiraldez.comicsearch.search.presentation;
 
 import java.util.List;
 
-import es.ffgiraldez.comicsearch.ReplaceToVoid;
 import es.ffgiraldez.comicsearch.data.ComicStorage;
 import es.ffgiraldez.comicsearch.model.SearchResult;
+import es.ffgiraldez.comicsearch.rx.Replacements;
 import es.ffgiraldez.comicsearch.search.domain.FetchSearchResultTransformer;
 import rx.Observable;
 
@@ -40,7 +40,7 @@ public class SearchViewModel extends ObservableSearchViewModel {
 
         subscribe(Property.RESULTS, fetchResultObservable);
         Observable<List<String>> resultsObservable = observe(Property.RESULTS);
-        updatedResultsObservable = resultsObservable.map(new ReplaceToVoid<List<String>>());
+        updatedResultsObservable = resultsObservable.map(Replacements.returnVoid());
     }
 
     public Observable<Void> didUpdateResults() {
