@@ -25,7 +25,6 @@ ext {
             arch_comp_livedata  : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.architecture_components],
             arch_comp_viewmodel : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.architecture_components],
             arch_comp_reactive  : [group: 'android.arch.lifecycle', name: 'reactivestreams', version: versions.architecture_components],
-            cardview            : [group: 'com.android.support', name: 'cardview-v7', version: versions.support],
             constraint          : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
             databinding_compiler: [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
             design              : [group: 'com.android.support', name: 'design', version: versions.support],

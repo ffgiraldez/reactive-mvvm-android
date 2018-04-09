@@ -49,8 +49,6 @@ dependencies {
 
     implementation libs.arch_comp_livedata
     implementation libs.arch_comp_viewmodel
-    implementation libs.arch_comp_reactive
-    implementation libs.cardview
     implementation libs.constraint
     implementation libs.design
     implementation libs.floating_search
