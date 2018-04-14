@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.util.Log
 import es.ffgiraldez.comicsearch.comics.ComicRepository
 import es.ffgiraldez.comicsearch.comics.Volume
-import es.ffgiraldez.comicsearch.platform.toObservable
+import es.ffgiraldez.comicsearch.platform.toFlowable
 
 class SearchViewModel(
         private val repo: ComicRepository
@@ -16,12 +16,12 @@ class SearchViewModel(
     val results: MutableLiveData<List<Volume>> = MutableLiveData()
 
     init {
-        query.toObservable()
+        loading.value = false
+        results.value = emptyList()
+        query.toFlowable()
                 .doOnNext { loading.postValue(true) }
                 .doOnNext { results.postValue(emptyList()) }
-                .switchMapSingle { repo.searchVolume(it) }
-                .doOnSubscribe { loading.value = false }
-                .doOnSubscribe { results.value = emptyList() }
+                .switchMap { repo.findVolume(it) }
                 .doOnNext { loading.postValue(false) }
                 .subscribe {
                     results.postValue(it)

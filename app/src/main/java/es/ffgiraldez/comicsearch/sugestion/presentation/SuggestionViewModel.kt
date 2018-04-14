@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import es.ffgiraldez.comicsearch.comics.ComicRepository
-import es.ffgiraldez.comicsearch.platform.toObservable
+import es.ffgiraldez.comicsearch.platform.toFlowable
 import java.util.concurrent.TimeUnit
 
 class SuggestionViewModel(
@@ -16,13 +16,13 @@ class SuggestionViewModel(
     val results: MutableLiveData<List<String>> = MutableLiveData()
 
     init {
-        query.toObservable()
+        loading.value = false
+        results.value = emptyList()
+        query.toFlowable()
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .doOnNext { loading.postValue(true) }
                 .doOnNext { results.postValue(emptyList()) }
-                .switchMapSingle { repo.searchSuggestion(it) }
-                .doOnSubscribe { loading.value = false }
-                .doOnSubscribe { results.value = emptyList() }
+                .switchMap { repo.findSuggestion(it) }
                 .doOnNext { loading.postValue(false) }
                 .subscribe {
                     Log.d("cambio", "$it")
