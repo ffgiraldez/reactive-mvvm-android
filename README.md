@@ -4,12 +4,16 @@ My way to MVVM using RxJava with new Android databinding
 
 ## Summary
 * Use [MVVM][1] using [architecture components][6] with to separate Android Framework with a [clean architecture][2] to my domain logic.
-* Use [Android Databinding][3] to glue view model and Android
+* Use [Android Databinding][3] wih [LiveData][8] to glue [ViewModel][9] and Android
 * Asynchronous communications implemented with [Rx][4].
 * Rest API from [ComicVine][5]
+* Store data using [Room][7]
 
 ## Dependencies
 * architecture components
+  * livedata
+  * room
+  * viewmodel
 * rx-java
 * floating search
 * okhttp
@@ -22,8 +26,6 @@ TODO LIST
 
 * Better UI, with Material Design concepts and so on
 * Add unit tests, allways fail on that :( 
-* Implement a local datasource with Realm to test it
-
 
 Developed By
 ------------
@@ -40,7 +42,7 @@ Fernando Franco Giráldez - <ffrancogiraldez@gmail.com>
 License
 -------
 
-    Copyright 2015 Fernando Franco Giráldez
+    Copyright 2018 Fernando Franco Giráldez
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -59,3 +61,6 @@ License
 [4]: http://reactivex.io/
 [5]: http://www.comicvine.com/api/
 [6]: https://developer.android.com/topic/libraries/architecture/index.html
+[7]: https://developer.android.com/topic/libraries/architecture/room.html
+[8]: https://developer.android.com/topic/libraries/architecture/livedata.html
+[9]: https://developer.android.com/topic/libraries/architecture/viewmodel.html

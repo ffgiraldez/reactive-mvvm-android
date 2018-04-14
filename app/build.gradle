@@ -33,7 +33,7 @@ android {
     dataBinding {
         enabled = true
     }
-    
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -44,11 +44,22 @@ android {
     }
 }
 
+kapt {
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas".toString())
+    }
+}
+
+
 dependencies {
     kapt libs.databinding_compiler
+    kapt libs.arch_comp_room_compiler
+    kaptTest libs.arch_comp_room_compiler
 
     implementation libs.arch_comp_livedata
     implementation libs.arch_comp_viewmodel
+    implementation libs.arch_comp_room
+    implementation libs.arch_comp_room_rxjava
     implementation libs.constraint
     implementation libs.design
     implementation libs.floating_search
@@ -64,7 +75,10 @@ dependencies {
     implementation libs.retrofit_rx_java
     implementation libs.rx_java
     implementation libs.rx_android
+    implementation libs.steho
 
+    testImplementation libs.arch_comp_room_test
+    testImplementation libs.arch_comp_test
     testImplementation libs.junit
     testImplementation libs.koin_test
     testImplementation libs.mockito_kotlin
