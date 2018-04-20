@@ -5,8 +5,8 @@ import es.ffgiraldez.comicsearch.comics.ComicRepository
 import es.ffgiraldez.comicsearch.comics.data.ComicVineApi
 import es.ffgiraldez.comicsearch.comics.store.ComicDatabase
 import es.ffgiraldez.comicsearch.navigation.Navigator
-import es.ffgiraldez.comicsearch.search.presentation.SearchViewModel
-import es.ffgiraldez.comicsearch.sugestion.presentation.SuggestionViewModel
+import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
+import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuggestionViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.context.ParameterProvider

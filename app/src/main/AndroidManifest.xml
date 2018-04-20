@@ -10,7 +10,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.ComicSearch">
-        <activity android:name=".search.ui.SearchActivity">
+        <activity android:name="es.ffgiraldez.comicsearch.query.base.ui.QueryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
