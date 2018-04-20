@@ -20,4 +20,3 @@ class SearchScreenDelegate(
 
     fun onSuggestionSelected(suggestion: String) =
             with(search) { query.value = suggestion }
-}

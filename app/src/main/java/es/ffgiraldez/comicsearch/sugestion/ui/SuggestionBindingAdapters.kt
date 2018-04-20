@@ -9,11 +9,14 @@ fun bindQueryChangeListener(search: FloatingSearchView, listener: FloatingSearch
         search.setOnQueryChangeListener(listener)
 
 @BindingAdapter("suggestions")
-fun bindSuggestions(search: FloatingSearchView, liveData: List<String>) =
-        liveData.map { VolumeSearchSuggestion(it) }.let { search.swapSuggestions(it) }
+fun bindSuggestions(search: FloatingSearchView, liveData: List<String>?) = liveData?.let {
+    it.map { VolumeSearchSuggestion(it) }.let { search.swapSuggestions(it) }
+}
 
 @BindingAdapter("show_progress")
-fun bindLoading(search: FloatingSearchView, liveData: Boolean) = when (liveData) {
-    true -> search.showProgress()
-    false -> search.hideProgress()
+fun bindLoading(search: FloatingSearchView, liveData: Boolean?) = liveData?.let {
+    when (it) {
+        true -> search.showProgress()
+        false -> search.hideProgress()
+    }
 }

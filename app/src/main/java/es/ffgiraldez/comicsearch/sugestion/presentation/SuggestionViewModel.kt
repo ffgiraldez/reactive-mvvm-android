@@ -2,7 +2,6 @@ package es.ffgiraldez.comicsearch.sugestion.presentation
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
 import es.ffgiraldez.comicsearch.comics.ComicRepository
 import es.ffgiraldez.comicsearch.platform.toFlowable
 import java.util.concurrent.TimeUnit
@@ -16,17 +15,25 @@ class SuggestionViewModel(
     val results: MutableLiveData<List<String>> = MutableLiveData()
 
     init {
-        loading.value = false
-        results.value = emptyList()
         query.toFlowable()
                 .debounce(400, TimeUnit.MILLISECONDS)
-                .doOnNext { loading.postValue(true) }
-                .doOnNext { results.postValue(emptyList()) }
-                .switchMap { repo.findSuggestion(it) }
-                .doOnNext { loading.postValue(false) }
+                .switchMap { query ->
+                    repo.findSuggestion(query)
+                            .map { suggestions -> SuggestionViewState.result(suggestions) }
+                            .startWith(SuggestionViewState.loading())
+                }.startWith(SuggestionViewState.idle())
                 .subscribe {
-                    Log.d("cambio", "$it")
-                    results.postValue(it)
+                    when (it) {
+                        SuggestionViewState.Idle -> applyState(false, emptyList())
+                        is SuggestionViewState.Loading -> applyState(true, emptyList())
+                        is SuggestionViewState.Result -> applyState(false, it.suggestions)
+                    }
                 }
+
+    }
+
+    private fun applyState(isLoading: Boolean, suggestions: List<String>) {
+        loading.postValue(isLoading)
+        results.postValue(suggestions)
     }
 }
