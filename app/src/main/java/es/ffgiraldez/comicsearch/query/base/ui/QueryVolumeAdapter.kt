@@ -1,4 +1,4 @@
-package es.ffgiraldez.comicsearch.search.ui
+package es.ffgiraldez.comicsearch.query.base.ui
 
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import es.ffgiraldez.comicsearch.comics.Volume
-import es.ffgiraldez.comicsearch.databinding.SearchItemBinding
+import es.ffgiraldez.comicsearch.databinding.QueryItemBinding
 
-class SearchVolumeAdapter : ListAdapter<Volume, SearchVolumeViewHolder>(asyncDiff) {
+class QueryVolumeAdapter : ListAdapter<Volume, QueryVolumeViewHolder>(asyncDiff) {
 
     var onVolumeSelectedListener: OnVolumeSelectedListener? = null
 
@@ -20,13 +20,13 @@ class SearchVolumeAdapter : ListAdapter<Volume, SearchVolumeViewHolder>(asyncDif
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchVolumeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QueryVolumeViewHolder {
         return LayoutInflater.from(parent.context).run {
-            SearchItemBinding.inflate(this, parent, false)
-        }.run { SearchVolumeViewHolder(this) }
+            QueryItemBinding.inflate(this, parent, false)
+        }.run { QueryVolumeViewHolder(this) }
     }
 
-    override fun onBindViewHolder(holder: SearchVolumeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: QueryVolumeViewHolder, position: Int) {
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener { onVolumeSelectedListener?.onVolumeSelected(getItem(position)) }
     }
@@ -37,8 +37,8 @@ interface OnVolumeSelectedListener {
 }
 
 
-class SearchVolumeViewHolder(
-        private val binding: SearchItemBinding
+class QueryVolumeViewHolder(
+        private val binding: QueryItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(volume: Volume) = with(binding) {
         this.volume = volume

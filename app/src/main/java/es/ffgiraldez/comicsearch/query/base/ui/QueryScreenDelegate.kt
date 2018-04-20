@@ -1,15 +1,15 @@
-package es.ffgiraldez.comicsearch.search.ui
+package es.ffgiraldez.comicsearch.query.base.ui
 
 import es.ffgiraldez.comicsearch.comics.Volume
 import es.ffgiraldez.comicsearch.navigation.Navigator
 import es.ffgiraldez.comicsearch.navigation.Screen
-import es.ffgiraldez.comicsearch.search.presentation.SearchViewModel
-import es.ffgiraldez.comicsearch.sugestion.presentation.SuggestionViewModel
+import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
+import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuggestionViewModel
 
-class SearchScreenDelegate(
+class QueryScreenDelegate(
         val suggestions: SuggestionViewModel,
         val search: SearchViewModel,
-        val adapter: SearchVolumeAdapter,
+        val adapter: QueryVolumeAdapter,
         private val navigator: Navigator
 ) {
     fun onVolumeSelected(volume: Volume) =
@@ -20,3 +20,4 @@ class SearchScreenDelegate(
 
     fun onSuggestionSelected(suggestion: String) =
             with(search) { query.value = suggestion }
+}
