@@ -1,11 +1,16 @@
 package es.ffgiraldez.comicsearch.di
 
 import android.arch.persistence.room.Room
-import es.ffgiraldez.comicsearch.comics.ComicRepository
-import es.ffgiraldez.comicsearch.comics.data.ComicVineApi
-import es.ffgiraldez.comicsearch.comics.store.ComicDatabase
+import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
+import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
 import es.ffgiraldez.comicsearch.navigation.Navigator
+import es.ffgiraldez.comicsearch.query.search.data.SearchLocalDataSource
+import es.ffgiraldez.comicsearch.query.search.data.SearchRemoteDataSource
+import es.ffgiraldez.comicsearch.query.search.data.SearchRepository
 import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
+import es.ffgiraldez.comicsearch.query.sugestion.data.SuggestionLocalDataSource
+import es.ffgiraldez.comicsearch.query.sugestion.data.SuggestionRemoteDataSource
+import es.ffgiraldez.comicsearch.query.sugestion.data.SuggestionRepository
 import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuggestionViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,9 +38,17 @@ val comicContext = applicationContext {
                 .build()
                 .create(ComicVineApi::class.java)
     }
-    factory { ComicRepository(get(), get({ it.values })) }
-    factory { SuggestionViewModel(get({ it.values })) }
-    factory { SearchViewModel(get()) }
-    factory { params -> Navigator(params[ACTIVITY_PARAM]) }
     bean { params: ParameterProvider -> Room.databaseBuilder(params[CONTEXT_PARAM], ComicDatabase::class.java, "comics").build() }
+
+    factory { SearchLocalDataSource(get({ it.values })) }
+    factory { SearchRemoteDataSource(get()) }
+    factory { SearchRepository(get({ it.values }), get()) }
+    factory { SearchViewModel(get()) }
+
+    factory { SuggestionLocalDataSource(get({ it.values })) }
+    factory { SuggestionRemoteDataSource(get()) }
+    factory { SuggestionRepository(get({ it.values }), get()) }
+    factory { SuggestionViewModel(get({ it.values })) }
+
+    factory { params -> Navigator(params[ACTIVITY_PARAM]) }
 }

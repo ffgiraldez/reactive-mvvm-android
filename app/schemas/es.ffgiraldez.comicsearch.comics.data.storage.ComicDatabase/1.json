@@ -1,0 +1,217 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "843b5908f7967726e53a210136b5cda2",
+    "entities": [
+      {
+        "tableName": "queries",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`query_identifier` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `search_term` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "queryId",
+            "columnName": "query_identifier",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "searchTerm",
+            "columnName": "search_term",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "query_identifier"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "idx_query_identifier",
+            "unique": false,
+            "columnNames": [
+              "query_identifier"
+            ],
+            "createSql": "CREATE  INDEX `idx_query_identifier` ON `${TABLE_NAME}` (`query_identifier`)"
+          },
+          {
+            "name": "idx_query_term",
+            "unique": false,
+            "columnNames": [
+              "search_term"
+            ],
+            "createSql": "CREATE  INDEX `idx_query_term` ON `${TABLE_NAME}` (`search_term`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "suggestions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`suggestionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `query_id` INTEGER NOT NULL, `title` TEXT NOT NULL, FOREIGN KEY(`query_id`) REFERENCES `queries`(`query_identifier`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "suggestionId",
+            "columnName": "suggestionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "queryId",
+            "columnName": "query_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "suggestionId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "idx_suggestion_id",
+            "unique": false,
+            "columnNames": [
+              "query_id"
+            ],
+            "createSql": "CREATE  INDEX `idx_suggestion_id` ON `${TABLE_NAME}` (`query_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "queries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "query_id"
+            ],
+            "referencedColumns": [
+              "query_identifier"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "search",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`search_identifier` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `search_term` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "queryId",
+            "columnName": "search_identifier",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "searchTerm",
+            "columnName": "search_term",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "search_identifier"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "idx_search_identifier",
+            "unique": false,
+            "columnNames": [
+              "search_identifier"
+            ],
+            "createSql": "CREATE  INDEX `idx_search_identifier` ON `${TABLE_NAME}` (`search_identifier`)"
+          },
+          {
+            "name": "idx_search_term",
+            "unique": false,
+            "columnNames": [
+              "search_term"
+            ],
+            "createSql": "CREATE  INDEX `idx_search_term` ON `${TABLE_NAME}` (`search_term`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "volumes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`suggestionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `search_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `author` TEXT NOT NULL, `url` TEXT NOT NULL, FOREIGN KEY(`search_id`) REFERENCES `search`(`search_identifier`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "suggestionId",
+            "columnName": "suggestionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "queryId",
+            "columnName": "search_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "suggestionId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "idx_search_id",
+            "unique": false,
+            "columnNames": [
+              "search_id"
+            ],
+            "createSql": "CREATE  INDEX `idx_search_id` ON `${TABLE_NAME}` (`search_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "search",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "search_id"
+            ],
+            "referencedColumns": [
+              "search_identifier"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"843b5908f7967726e53a210136b5cda2\")"
+    ]
+  }
+}

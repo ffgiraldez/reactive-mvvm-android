@@ -5,7 +5,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import es.ffgiraldez.comicsearch.comics.Volume
+import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.databinding.QueryItemBinding
 
 class QueryVolumeAdapter : ListAdapter<Volume, QueryVolumeViewHolder>(asyncDiff) {

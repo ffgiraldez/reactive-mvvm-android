@@ -1,6 +1,6 @@
 package es.ffgiraldez.comicsearch.query.base.ui
 
-import es.ffgiraldez.comicsearch.comics.Volume
+import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.navigation.Navigator
 import es.ffgiraldez.comicsearch.navigation.Screen
 import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
