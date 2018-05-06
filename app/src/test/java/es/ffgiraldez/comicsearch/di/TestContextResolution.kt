@@ -4,6 +4,12 @@ import android.app.Activity
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.content.Context
 import com.nhaarman.mockito_kotlin.mock
+import es.ffgiraldez.comicsearch.comics.di.comicModule
+import es.ffgiraldez.comicsearch.navigation.di.ACTIVITY_PARAM
+import es.ffgiraldez.comicsearch.navigation.di.CONTEXT_PARAM
+import es.ffgiraldez.comicsearch.navigation.di.navigationModule
+import es.ffgiraldez.comicsearch.query.search.di.searchModule
+import es.ffgiraldez.comicsearch.query.sugestion.di.suggestionModule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
@@ -15,10 +21,16 @@ class TestContextResolution : KoinTest {
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
+
     @Test
     fun `dry run`() {
         // start Koin
-        startKoin(listOf(comicContext))
+        startKoin(listOf(
+                navigationModule,
+                comicModule,
+                searchModule,
+                suggestionModule
+        ))
         // dry run of given module list
         dryRun(defaultParameters = {
             mapOf(

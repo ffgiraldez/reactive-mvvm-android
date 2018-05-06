@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.android.MainThreadDisposable
 
 fun <T> LiveData<T>.toFlowable(): Flowable<T> =
