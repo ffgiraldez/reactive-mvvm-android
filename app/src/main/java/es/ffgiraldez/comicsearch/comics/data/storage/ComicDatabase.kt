@@ -1,4 +1,4 @@
-package es.ffgiraldez.comicsearch.comics.store
+package es.ffgiraldez.comicsearch.comics.data.storage
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase

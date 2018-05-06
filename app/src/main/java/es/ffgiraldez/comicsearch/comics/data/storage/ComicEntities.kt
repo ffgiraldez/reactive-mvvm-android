@@ -1,4 +1,4 @@
-package es.ffgiraldez.comicsearch.comics.store
+package es.ffgiraldez.comicsearch.comics.data.storage
 
 import android.arch.persistence.room.*
 import android.arch.persistence.room.ForeignKey.CASCADE

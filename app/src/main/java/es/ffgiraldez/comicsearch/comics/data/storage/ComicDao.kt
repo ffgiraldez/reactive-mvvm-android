@@ -1,10 +1,10 @@
-package es.ffgiraldez.comicsearch.comics.store
+package es.ffgiraldez.comicsearch.comics.data.storage
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Transaction
-import es.ffgiraldez.comicsearch.comics.Volume
+import es.ffgiraldez.comicsearch.comics.domain.Volume
 import io.reactivex.Flowable
 
 @Dao

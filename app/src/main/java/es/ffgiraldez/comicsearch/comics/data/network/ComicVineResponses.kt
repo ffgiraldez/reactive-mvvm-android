@@ -1,4 +1,4 @@
-package es.ffgiraldez.comicsearch.comics.data
+package es.ffgiraldez.comicsearch.comics.data.network
 
 import com.google.gson.annotations.SerializedName
 
