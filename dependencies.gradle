@@ -9,9 +9,9 @@ ext {
     versions = [
             arch_comp_lifecycle  : '1.1.1',
             arch_comp_persistence: '1.0.0',
-            android_plugin       : '3.1.1',
+            android_plugin       : '3.1.2',
             koin                 : '0.9.1',
-            kotlin               : '1.2.40',
+            kotlin               : '1.2.41',
             okhttp               : '3.9.1',
             retrofit             : '2.4.0',
             support              : '27.1.0',

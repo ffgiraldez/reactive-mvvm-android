@@ -55,6 +55,7 @@ dependencies {
     implementation libs.arch_comp_viewmodel
     implementation libs.arch_comp_room
     implementation libs.arch_comp_room_rxjava
+    implementation 'io.arrow-kt:arrow-core:0.7.1'
     implementation libs.constraint
     implementation libs.design
     implementation libs.floating_search
