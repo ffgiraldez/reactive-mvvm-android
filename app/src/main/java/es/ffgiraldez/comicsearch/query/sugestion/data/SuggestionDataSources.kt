@@ -5,19 +5,18 @@ import arrow.core.toOption
 import es.ffgiraldez.comicsearch.comics.data.ComicLocalDataSource
 import es.ffgiraldez.comicsearch.comics.data.ComicRemoteDataSource
 import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
-import es.ffgiraldez.comicsearch.comics.domain.Query
 import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
+import es.ffgiraldez.comicsearch.comics.domain.Query
+import es.ffgiraldez.comicsearch.platform.ComicSchedulers
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-
 
 class SuggestionRemoteDataSource(
         private val api: ComicVineApi
 ) : ComicRemoteDataSource<String> {
     override fun findByTerm(searchTerm: String): Single<List<String>> = api.fetchVolumes(searchTerm)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(ComicSchedulers.network)
             .map { response ->
                 response.results
                         .distinctBy { it.name }
@@ -31,16 +30,16 @@ class SuggestionLocalDataSource(
     override fun insert(query: String, titles: List<String>): Completable =
             Completable.fromAction {
                 database.suggestionDao().insert(query, titles)
-            }.subscribeOn(Schedulers.io())
+            }.subscribeOn(ComicSchedulers.database)
 
     override fun findQueryByTerm(searchTerm: String): Flowable<Option<Query>> = database.suggestionDao()
             .findQueryByTerm(searchTerm)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(ComicSchedulers.database)
             .flatMap { Flowable.just(it.firstOrNull().toOption()) }
             .map { search -> search.map { Query(it.queryId, it.searchTerm) } }
 
     override fun findByQuery(query: Query): Flowable<List<String>> = database.suggestionDao()
             .findSuggestionByQuery(query.identifier)
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(ComicSchedulers.database)
             .map { suggestions -> suggestions.map { it.title } }
 }
