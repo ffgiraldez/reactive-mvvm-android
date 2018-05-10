@@ -15,8 +15,13 @@ class SuggestionViewModel private constructor(
             it.debounce(400, TimeUnit.MILLISECONDS)
                     .switchMap { query ->
                         repo.findByTerm(query)
-                                .map { suggestions -> QueryViewState.result(suggestions) }
-                                .startWith(QueryViewState.loading())
+                                .map { suggestions ->
+                                    suggestions.fold({
+                                        QueryViewState.error<String>(it)
+                                    }, {
+                                        QueryViewState.result(it)
+                                    })
+                                }.startWith(QueryViewState.loading())
                     }.startWith(QueryViewState.idle())
         }
     }

@@ -4,10 +4,10 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import es.ffgiraldez.comicsearch.R
+import es.ffgiraldez.comicsearch.comics.di.CONTEXT_PARAM
 import es.ffgiraldez.comicsearch.databinding.QueryActivityBinding
-import es.ffgiraldez.comicsearch.navigation.di.ACTIVITY_PARAM
-import es.ffgiraldez.comicsearch.navigation.di.CONTEXT_PARAM
 import es.ffgiraldez.comicsearch.navigation.Navigator
+import es.ffgiraldez.comicsearch.navigation.di.ACTIVITY_PARAM
 import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
 import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuggestionViewModel
 import org.koin.android.architecture.ext.viewModel
