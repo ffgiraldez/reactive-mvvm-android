@@ -14,7 +14,13 @@ class SearchViewModel private constructor(
         operator fun invoke(repo: SearchRepository): SearchViewModel = SearchViewModel {
             it.switchMap {
                 repo.findByTerm(it)
-                        .map { QueryViewState.result(it) }
+                        .map {
+                            it.fold({
+                                QueryViewState.error<Volume>(it)
+                            }, {
+                                QueryViewState.result(it)
+                            })
+                        }
                         .startWith(QueryViewState.loading())
             }.startWith(QueryViewState.idle())
         }

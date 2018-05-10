@@ -6,6 +6,7 @@ import com.arlib.floatingsearchview.FloatingSearchView
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.platform.safe
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion
+import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
 
 
 @BindingAdapter("on_change")
@@ -29,7 +30,3 @@ fun bindLoading(search: FloatingSearchView, liveData: Boolean?) = liveData?.let 
     }
 }
 
-private fun ComicError.toHumanResponse(): String = when (this) {
-    ComicError.NetworkError -> "no internet connection"
-    ComicError.EmptyResultsError -> "search without suggestion"
-}

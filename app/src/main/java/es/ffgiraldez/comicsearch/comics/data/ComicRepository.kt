@@ -14,21 +14,6 @@ abstract class ComicRepository<T>(
         private val local: ComicLocalDataSource<T>,
         private val remote: ComicRemoteDataSource<T>
 ) {
-    fun findByTerm(term: String): Flowable<List<T>> =
-            local.findQueryByTerm(term)
-                    .flatMap {
-                        when (it) {
-                            is None -> remote.findByTerm(term)
-                                    .flatMapPublisher { local.insert(term, it).toFlowable<List<T>>() }
-                            is Some -> local.findByQuery(it.t)
-                        }
-                    }
-}
-
-abstract class ComicRepositoryEither<T>(
-        private val local: ComicLocalDataSource<T>,
-        private val remote: ComicRemoteDataSource<T>
-) {
     fun findByTerm(term: String): Flowable<Either<ComicError, List<T>>> =
             local.findQueryByTerm(term)
                     .flatMap {

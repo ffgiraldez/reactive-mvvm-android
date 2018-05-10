@@ -1,8 +1,8 @@
 package es.ffgiraldez.comicsearch.query.sugestion.data
 
-import es.ffgiraldez.comicsearch.comics.data.ComicRepositoryEither
+import es.ffgiraldez.comicsearch.comics.data.ComicRepository
 
 class SuggestionRepository(
         local: SuggestionLocalDataSource,
         remote: SuggestionRemoteDataSource
-) : ComicRepositoryEither<String>(local, remote)
+) : ComicRepository<String>(local, remote)
