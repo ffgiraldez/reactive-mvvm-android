@@ -10,3 +10,8 @@ data class Query(
         val identifier: Long,
         val searchTerm: String
 )
+
+sealed class ComicError {
+    object NetworkError : ComicError()
+    object EmptyResultsError : ComicError()
+}

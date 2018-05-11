@@ -11,7 +11,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val ACTIVITY_PARAM: String = "activity"
 const val CONTEXT_PARAM: String = "context"
 
 val comicModule = applicationContext {

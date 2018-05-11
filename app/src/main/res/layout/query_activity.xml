@@ -15,6 +15,18 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:error='@{ delegate.search.error}'>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:error='@{ delegate.search.error}' />
+        </FrameLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
@@ -23,6 +35,7 @@
             android:paddingTop="72dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:adapter="@{ delegate.adapter }"
+            app:error='@{ delegate.search.error}'
             app:on_data_change="@{ delegate.search.results }"
             app:on_selected="@{ (volume) -> delegate.onVolumeSelected(volume) }" />
 
@@ -47,6 +60,7 @@
             app:on_change='@{ (old, new) -> delegate.onQueryChange(new) }'
             app:on_suggestion_click='@{ (suggestion) -> delegate.onSuggestionSelected(suggestion.body) }'
             app:show_progress='@{ delegate.suggestions.loading }'
+            app:error='@{ delegate.suggestions.error}'
             app:suggestions='@{ delegate.suggestions.results }' />
 
 

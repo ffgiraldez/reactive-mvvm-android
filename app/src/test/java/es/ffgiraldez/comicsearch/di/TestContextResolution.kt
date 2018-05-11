@@ -4,9 +4,9 @@ import android.app.Activity
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.content.Context
 import com.nhaarman.mockito_kotlin.mock
+import es.ffgiraldez.comicsearch.comics.di.CONTEXT_PARAM
 import es.ffgiraldez.comicsearch.comics.di.comicModule
 import es.ffgiraldez.comicsearch.navigation.di.ACTIVITY_PARAM
-import es.ffgiraldez.comicsearch.navigation.di.CONTEXT_PARAM
 import es.ffgiraldez.comicsearch.navigation.di.navigationModule
 import es.ffgiraldez.comicsearch.query.search.di.searchModule
 import es.ffgiraldez.comicsearch.query.sugestion.di.suggestionModule
