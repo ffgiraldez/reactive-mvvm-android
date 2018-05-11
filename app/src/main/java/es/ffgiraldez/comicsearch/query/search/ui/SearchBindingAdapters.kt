@@ -11,6 +11,7 @@ import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.query.base.ui.OnVolumeSelectedListener
+import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.QueryVolumeAdapter
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
 import io.reactivex.functions.Consumer
@@ -22,10 +23,14 @@ fun bindSuggestionClick(search: FloatingSearchView, clickConsumer: ClickConsumer
             searchConsumer?.apply { searchConsumer.accept(currentQuery) }
         }
 
-        override fun onSuggestionClicked(searchSuggestion: SearchSuggestion?) {
+        override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
             clickConsumer?.apply {
-                clickConsumer.accept(searchSuggestion)
-                search.setSearchFocused(false)
+                when (searchSuggestion) {
+                    is ResultSuggestion -> {
+                        clickConsumer.accept(searchSuggestion)
+                        search.setSearchFocused(false)
+                    }
+                }
             }
         }
     })

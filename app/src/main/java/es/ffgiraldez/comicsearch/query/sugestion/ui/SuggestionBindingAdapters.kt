@@ -5,7 +5,8 @@ import arrow.core.Option
 import com.arlib.floatingsearchview.FloatingSearchView
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.platform.safe
-import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion
+import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ErrorSuggestion
+import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
 
 
@@ -14,12 +15,16 @@ fun bindQueryChangeListener(search: FloatingSearchView, listener: FloatingSearch
         search.setOnQueryChangeListener(listener)
 
 @BindingAdapter("suggestions", "error")
-fun bindSuggestions(search: FloatingSearchView, resultData: List<String>?, errorData: Option<ComicError>?) = safe(errorData, resultData) { error, results ->
+fun bindSuggestions(
+        search: FloatingSearchView,
+        resultData: List<String>?,
+        errorData: Option<ComicError>?
+) = safe(errorData, resultData) { error, results ->
     error.fold({
-        results
+        results.map { ResultSuggestion(it) }
     }, {
-        listOf(it.toHumanResponse())
-    }).map { QuerySearchSuggestion(it) }.let { search.swapSuggestions(it) }
+        listOf(ErrorSuggestion(it.toHumanResponse()))
+    }).let { search.swapSuggestions(it) }
 }
 
 @BindingAdapter("show_progress")
