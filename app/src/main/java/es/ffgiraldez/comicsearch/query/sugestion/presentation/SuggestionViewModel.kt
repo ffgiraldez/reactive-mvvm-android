@@ -13,16 +13,31 @@ class SuggestionViewModel private constructor(
     companion object {
         operator fun invoke(repo: SuggestionRepository): SuggestionViewModel = SuggestionViewModel {
             it.debounce(400, TimeUnit.MILLISECONDS)
-                    .switchMap { query ->
-                        repo.findByTerm(query)
-                                .map { suggestions ->
-                                    suggestions.fold({
-                                        QueryViewState.error<String>(it)
-                                    }, {
-                                        QueryViewState.result(it)
-                                    })
-                                }.startWith(QueryViewState.loading())
-                    }.startWith(QueryViewState.idle())
+                    .switchMap { query -> handleQuery(query, repo) }
+                    .startWith(QueryViewState.idle())
         }
+
+        private fun handleQuery(
+                query: String,
+                repo: SuggestionRepository
+        ): Flowable<QueryViewState<String>> =
+                if (query.isEmpty()) {
+                    Flowable.just(QueryViewState.idle())
+                } else {
+                    searchSuggestions(repo, query)
+                }
+
+        private fun searchSuggestions(
+                repo: SuggestionRepository,
+                query: String
+        ): Flowable<QueryViewState<String>> =
+                repo.findByTerm(query)
+                        .map { suggestions ->
+                            suggestions.fold({
+                                QueryViewState.error<String>(it)
+                            }, {
+                                QueryViewState.result(it)
+                            })
+                        }.startWith(QueryViewState.loading())
     }
 }

@@ -12,7 +12,11 @@ class SearchViewModel private constructor(
 ) : QueryViewModel<Volume>(queryToResult) {
     companion object {
         operator fun invoke(repo: SearchRepository): SearchViewModel = SearchViewModel {
-            it.switchMap {
+            it.switchMap { handleQuery(repo, it) }
+                    .startWith(QueryViewState.idle())
+        }
+
+        private fun handleQuery(repo: SearchRepository, it: String): Flowable<QueryViewState<Volume>> =
                 repo.findByTerm(it)
                         .map {
                             it.fold({
@@ -22,7 +26,5 @@ class SearchViewModel private constructor(
                             })
                         }
                         .startWith(QueryViewState.loading())
-            }.startWith(QueryViewState.idle())
-        }
     }
 }
