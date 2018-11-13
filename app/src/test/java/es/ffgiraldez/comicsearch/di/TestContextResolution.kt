@@ -3,7 +3,7 @@ package es.ffgiraldez.comicsearch.di
 import android.app.Activity
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.content.Context
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.mock
 import es.ffgiraldez.comicsearch.comics.di.CONTEXT_PARAM
 import es.ffgiraldez.comicsearch.comics.di.comicModule
 import es.ffgiraldez.comicsearch.navigation.di.ACTIVITY_PARAM

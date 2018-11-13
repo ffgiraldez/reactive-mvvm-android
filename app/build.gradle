@@ -58,7 +58,9 @@ dependencies {
     implementation libs.arrow
     implementation libs.constraint
     implementation libs.design
-    implementation libs.floating_search
+    implementation(libs.floating_search) {
+        exclude module: 'support-v4'
+    }
     implementation libs.okhttp
     implementation libs.okhttp_logging
     implementation libs.koin
