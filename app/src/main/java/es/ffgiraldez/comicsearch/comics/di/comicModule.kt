@@ -1,19 +1,17 @@
 package es.ffgiraldez.comicsearch.comics.di
 
 import android.arch.persistence.room.Room
+import android.content.Context
 import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
 import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.context.ParameterProvider
-import org.koin.dsl.module.applicationContext
+import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val CONTEXT_PARAM: String = "context"
-
-val comicModule = applicationContext {
+val comicModule = module {
     factory {
         val okHttp = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor()
@@ -28,5 +26,5 @@ val comicModule = applicationContext {
                 .build()
                 .create(ComicVineApi::class.java)
     }
-    bean { params: ParameterProvider -> Room.databaseBuilder(params[CONTEXT_PARAM], ComicDatabase::class.java, "comics").build() }
+    single { (context: Context) -> Room.databaseBuilder(context, ComicDatabase::class.java, "comics").build() }
 }
