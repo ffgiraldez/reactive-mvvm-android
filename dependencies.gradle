@@ -7,13 +7,13 @@ ext {
     target_sdk = 28
 
     versions = [
-            architecture_components  : '1.1.1',
-            android_plugin       : '3.3.0',
-            koin                 : '1.0.2',
-            kotlin               : '1.3.20',
-            okhttp               : '3.11.0',
-            retrofit             : '2.4.0',
-            support              : '28.0.0',
+            architecture_components: '2.0.0',
+            android_plugin         : '3.3.0',
+            koin                   : '1.0.2',
+            kotlin                 : '1.3.20',
+            okhttp                 : '3.11.0',
+            retrofit               : '2.4.0',
+            support                : '1.0.0',
     ]
 
     build_plugins = [
@@ -22,17 +22,17 @@ ext {
     ]
 
     libs = [
-            arch_comp_livedata     : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.architecture_components],
-            arch_comp_viewmodel    : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.architecture_components],
-            arch_comp_room         : [group: 'android.arch.persistence.room', name: 'runtime', version: versions.architecture_components],
-            arch_comp_room_compiler: [group: 'android.arch.persistence.room', name: 'compiler', version: versions.architecture_components],
-            arch_comp_room_rxjava  : [group: 'android.arch.persistence.room', name: 'rxjava2', version: versions.architecture_components],
-            arch_comp_room_test    : [group: 'android.arch.persistence.room', name: 'testing', version: versions.architecture_components],
-            arch_comp_test         : [group: 'android.arch.core', name: 'core-testing', version: versions.architecture_components],
+            arch_comp_livedata     : [group: 'androidx.lifecycle', name: 'lifecycle-livedata', version: versions.architecture_components],
+            arch_comp_viewmodel    : [group: 'androidx.lifecycle', name: 'lifecycle-viewmodel', version: versions.architecture_components],
+            arch_comp_room         : [group: 'androidx.room', name: 'room-runtime', version: versions.architecture_components],
+            arch_comp_room_compiler: [group: 'androidx.room', name: 'room-compiler', version: versions.architecture_components],
+            arch_comp_room_rxjava  : [group: 'androidx.room', name: 'room-rxjava2', version: versions.architecture_components],
+            arch_comp_room_test    : [group: 'androidx.room', name: 'room-testing', version: versions.architecture_components],
+            arch_comp_test         : [group: 'androidx.arch.core', name: 'core-testing', version: versions.architecture_components],
             arrow                  : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.8.1'],
-            constraint             : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
+            constraint             : [group: 'androidx.constraintlayout', name: 'constraintlayout', version: '1.1.2'],
             databinding_compiler   : [group: 'androidx.databinding', name: 'databinding-compiler', version: versions.android_plugin],
-            design                 : [group: 'com.android.support', name: 'design', version: versions.support],
+            design                 : [group: 'com.google.android.material', name: 'material', version: versions.support],
             floating_search        : [group: 'com.github.arimorty', name: 'floatingsearchview', version: '2.1.1'],
             junit                  : [group: 'junit', name: 'junit', version: '4.12'],
             okhttp                 : [group: 'com.squareup.okhttp3', name: 'okhttp', version: versions.okhttp],

@@ -1,7 +1,7 @@
 package es.ffgiraldez.comicsearch.comics.di
 
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.room.Room
 import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
 import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
 import okhttp3.OkHttpClient

@@ -27,13 +27,13 @@
                 app:error='@{ delegate.search.error}' />
         </FrameLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="72dp"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:adapter="@{ delegate.adapter }"
             app:error='@{ delegate.search.error}'
             app:on_data_change="@{ delegate.search.results }"

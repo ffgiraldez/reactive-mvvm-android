@@ -1,6 +1,6 @@
 package es.ffgiraldez.comicsearch.di
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import es.ffgiraldez.comicsearch.comics.di.comicModule
 import es.ffgiraldez.comicsearch.navigation.di.navigationModule
 import es.ffgiraldez.comicsearch.query.search.di.searchModule

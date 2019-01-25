@@ -1,6 +1,6 @@
 package es.ffgiraldez.comicsearch.query.sugestion.ui
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import arrow.core.Option
 import com.arlib.floatingsearchview.FloatingSearchView
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
@@ -8,7 +8,6 @@ import es.ffgiraldez.comicsearch.platform.safe
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ErrorSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
-
 
 @BindingAdapter("on_change")
 fun bindQueryChangeListener(search: FloatingSearchView, listener: FloatingSearchView.OnQueryChangeListener) =
