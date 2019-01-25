@@ -1,7 +1,8 @@
 package es.ffgiraldez.comicsearch.query.base.presentation
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import arrow.core.Option
 import arrow.core.none
 import arrow.core.some

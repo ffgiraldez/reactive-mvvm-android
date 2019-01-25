@@ -7,13 +7,13 @@ ext {
     target_sdk = 28
 
     versions = [
-            architecture_components  : '1.1.1',
-            android_plugin       : '3.1.2',
-            koin                 : '1.0.2',
-            kotlin               : '1.3.10',
-            okhttp               : '3.11.0',
-            retrofit             : '2.4.0',
-            support              : '28.0.0',
+            architecture_components: '2.0.0',
+            android_plugin         : '3.3.0',
+            koin                   : '1.0.2',
+            kotlin                 : '1.3.20',
+            okhttp                 : '3.11.0',
+            retrofit               : '2.4.0',
+            support                : '1.0.0',
     ]
 
     build_plugins = [
@@ -22,14 +22,14 @@ ext {
     ]
 
     libs = [
-            arch_comp_livedata     : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.architecture_components],
-            arch_comp_viewmodel    : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.architecture_components],
-            arch_comp_room         : [group: 'android.arch.persistence.room', name: 'runtime', version: versions.architecture_components],
-            arch_comp_room_compiler: [group: 'android.arch.persistence.room', name: 'compiler', version: versions.architecture_components],
-            arch_comp_room_rxjava  : [group: 'android.arch.persistence.room', name: 'rxjava2', version: versions.architecture_components],
-            arch_comp_room_test    : [group: 'android.arch.persistence.room', name: 'testing', version: versions.architecture_components],
-            arch_comp_test         : [group: 'android.arch.core', name: 'core-testing', version: versions.architecture_components],
-            arrow                  : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.8.1'],
+            arch_comp_livedata     : [group: 'android.arch.lifecycle', name: 'livedata', version: versions.arch_comp_lifecycle],
+            arch_comp_viewmodel    : [group: 'android.arch.lifecycle', name: 'viewmodel', version: versions.arch_comp_lifecycle],
+            arch_comp_room         : [group: 'android.arch.persistence.room', name: 'runtime', version: versions.arch_comp_persistence],
+            arch_comp_room_compiler: [group: 'android.arch.persistence.room', name: 'compiler', version: versions.arch_comp_persistence],
+            arch_comp_room_rxjava  : [group: 'android.arch.persistence.room', name: 'rxjava2', version: versions.arch_comp_persistence],
+            arch_comp_room_test    : [group: 'android.arch.persistence.room', name: 'testing', version: versions.arch_comp_persistence],
+            arch_comp_test         : [group: 'android.arch.core', name: 'core-testing', version: versions.arch_comp_lifecycle],
+            arrow                  : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.8.2'],
             constraint             : [group: 'com.android.support.constraint', name: 'constraint-layout', version: '1.0.2'],
             databinding_compiler   : [group: 'com.android.databinding', name: 'compiler', version: versions.android_plugin],
             design                 : [group: 'com.android.support', name: 'design', version: versions.support],
@@ -42,12 +42,12 @@ ext {
             koin_architecture      : [group: 'org.koin', name: 'koin-android-viewmodel', version: versions.koin],
             koin_test              : [group: 'org.koin', name: 'koin-test', version: versions.koin],
             kotlin_stdlib          : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin],
-            mockito_kotlin         : [group: 'com.nhaarman.mockitokotlin2', name: 'mockito-kotlin', version: '2.0.0'],
+            mockito_kotlin         : [group: 'com.nhaarman.mockitokotlin2', name: 'mockito-kotlin', version: '2.1.0'],
             picasso                : [group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'],
             retrofit               : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
             retrofit_gson          : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
             retrofit_rx_java       : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: versions.retrofit],
-            rx_java                : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.3'],
+            rx_java                : [group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.6'],
             rx_android             : [group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.1.0'],
             steho                  : [group: 'com.facebook.stetho', name: 'stetho', version: '1.5.0']
     ]

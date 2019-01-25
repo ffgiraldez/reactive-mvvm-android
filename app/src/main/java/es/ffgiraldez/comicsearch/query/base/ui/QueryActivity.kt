@@ -1,8 +1,8 @@
 package es.ffgiraldez.comicsearch.query.base.ui
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import es.ffgiraldez.comicsearch.R
 import es.ffgiraldez.comicsearch.databinding.QueryActivityBinding
 import es.ffgiraldez.comicsearch.navigation.Navigator

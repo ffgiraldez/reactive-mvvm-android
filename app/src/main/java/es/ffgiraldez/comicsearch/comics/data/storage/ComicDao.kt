@@ -1,9 +1,10 @@
 package es.ffgiraldez.comicsearch.comics.data.storage
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
-import android.arch.persistence.room.Transaction
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Transaction
 import es.ffgiraldez.comicsearch.comics.domain.Volume
 import io.reactivex.Flowable
 
