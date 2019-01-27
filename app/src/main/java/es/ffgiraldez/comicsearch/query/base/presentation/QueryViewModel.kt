@@ -27,7 +27,7 @@ open class QueryViewModel<T>(
                     when (it) {
                         is QueryViewState.Loading -> applyState(isLoading = true)
                         is QueryViewState.Idle -> applyState(isLoading = false)
-                        is QueryViewState.Error -> applyState(isLoading = false, error = it.error.some())
+                        is QueryViewState.Error -> applyState(isLoading = false, error = it._error.some())
                         is QueryViewState.Result -> applyState(isLoading = false, results = it.results)
                     }
                 }

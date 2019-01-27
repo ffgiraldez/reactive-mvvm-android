@@ -18,13 +18,13 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:error='@{ delegate.search.error}'>
+            app:state_change='@{ delegate.search.state}'>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:error='@{ delegate.search.error}' />
+                app:state_change='@{ delegate.search.state}' />
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -35,15 +35,14 @@
             android:paddingTop="72dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:adapter="@{ delegate.adapter }"
-            app:error='@{ delegate.search.error}'
-            app:on_data_change="@{ delegate.search.results }"
+            app:state_change="@{ delegate.search.state }"
             app:on_selected="@{ (volume) -> delegate.onVolumeSelected(volume) }" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:gone='@{ !delegate.search.loading }' />
+            app:state_change='@{ delegate.search.state }' />
 
         <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/suggestions_input"
