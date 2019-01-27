@@ -33,10 +33,10 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="72dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:adapter="@{ delegate.adapter }"
-            app:state_change="@{ delegate.search.state }"
-            app:on_selected="@{ (volume) -> delegate.onVolumeSelected(volume) }" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:on_selected="@{ (volume) -> delegate.onVolumeSelected(volume) }"
+            app:state_change="@{ delegate.search.state }" />
 
         <ProgressBar
             android:layout_width="wrap_content"

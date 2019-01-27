@@ -71,7 +71,7 @@ fun bindErrorText(errorText: TextView, data: QueryViewState<Volume>?) = data?.le
 
 @BindingAdapter("state_change")
 fun bindProgress(progress: ProgressBar, data: QueryViewState<Volume>?) = data?.let { state ->
-    progress.gone(state.loading)
+    progress.gone(!state.loading)
 }
 
 private fun RecyclerView.bindError(error: Option<ComicError>): Unit =

@@ -9,7 +9,7 @@ import io.reactivex.android.MainThreadDisposable
 fun <T> LiveData<T>.toFlowable(): Flowable<T> =
         Flowable.create({ emitter ->
             val observer = Observer<T> {
-                it?.let { emitter.onNext(it) }
+                it?.let(emitter::onNext)
             }
             observeForever(observer)
 

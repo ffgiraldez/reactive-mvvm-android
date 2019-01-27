@@ -10,7 +10,7 @@ import es.ffgiraldez.comicsearch.databinding.QueryItemBinding
 
 class QueryVolumeAdapter : ListAdapter<Volume, QueryVolumeViewHolder>(asyncDiff) {
 
-    var onVolumeSelectedListener: OnVolumeSelectedListener? = null
+    var onVolumeSelectedListener: OnVolumeSelectedListener = OnVolumeSelectedListener.empty
 
     companion object {
         val asyncDiff: DiffUtil.ItemCallback<Volume> = object : DiffUtil.ItemCallback<Volume>() {
@@ -28,11 +28,17 @@ class QueryVolumeAdapter : ListAdapter<Volume, QueryVolumeViewHolder>(asyncDiff)
 
     override fun onBindViewHolder(holder: QueryVolumeViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.setOnClickListener { onVolumeSelectedListener?.onVolumeSelected(getItem(position)) }
+        holder.itemView.setOnClickListener { onVolumeSelectedListener.onVolumeSelected(getItem(position)) }
     }
 }
 
 interface OnVolumeSelectedListener {
+    companion object {
+        val empty: OnVolumeSelectedListener = object : OnVolumeSelectedListener {
+            override fun onVolumeSelected(volume: Volume) {}
+        }
+    }
+
     fun onVolumeSelected(volume: Volume)
 }
 
