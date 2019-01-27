@@ -58,10 +58,7 @@
             app:floatingSearch_suggestionsListAnimDuration="250"
             app:on_change='@{ (old, new) -> delegate.onQueryChange(new) }'
             app:on_suggestion_click='@{ (suggestion) -> delegate.onSuggestionSelected(suggestion.body) }'
-            app:show_progress='@{ delegate.suggestions.loading }'
-            app:error='@{ delegate.suggestions.error}'
-            app:suggestions='@{ delegate.suggestions.results }' />
-
+            app:state_change='@{ delegate.suggestions.state }' />
 
     </FrameLayout>
 </layout>
