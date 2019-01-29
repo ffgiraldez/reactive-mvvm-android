@@ -16,6 +16,9 @@ import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.ui.OnVolumeSelectedListener
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.QueryVolumeAdapter
+import es.ffgiraldez.comicsearch.query.base.ui.error
+import es.ffgiraldez.comicsearch.query.base.ui.loading
+import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
 import io.reactivex.functions.Consumer
 

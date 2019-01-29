@@ -5,6 +5,9 @@ import com.arlib.floatingsearchview.FloatingSearchView
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ErrorSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSuggestion
+import es.ffgiraldez.comicsearch.query.base.ui.error
+import es.ffgiraldez.comicsearch.query.base.ui.loading
+import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
 
 @BindingAdapter("on_change")
