@@ -18,13 +18,13 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:error='@{ delegate.search.error}'>
+            app:state_change='@{ delegate.search.state}'>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:error='@{ delegate.search.error}' />
+                app:state_change='@{ delegate.search.state}' />
         </FrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -33,17 +33,16 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingTop="72dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:adapter="@{ delegate.adapter }"
-            app:error='@{ delegate.search.error}'
-            app:on_data_change="@{ delegate.search.results }"
-            app:on_selected="@{ (volume) -> delegate.onVolumeSelected(volume) }" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:on_selected="@{ (volume) -> delegate.onVolumeSelected(volume) }"
+            app:state_change="@{ delegate.search.state }" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:gone='@{ !delegate.search.loading }' />
+            app:state_change='@{ delegate.search.state }' />
 
         <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/suggestions_input"
@@ -59,10 +58,7 @@
             app:floatingSearch_suggestionsListAnimDuration="250"
             app:on_change='@{ (old, new) -> delegate.onQueryChange(new) }'
             app:on_suggestion_click='@{ (suggestion) -> delegate.onSuggestionSelected(suggestion.body) }'
-            app:show_progress='@{ delegate.suggestions.loading }'
-            app:error='@{ delegate.suggestions.error}'
-            app:suggestions='@{ delegate.suggestions.results }' />
-
+            app:state_change='@{ delegate.suggestions.state }' />
 
     </FrameLayout>
 </layout>

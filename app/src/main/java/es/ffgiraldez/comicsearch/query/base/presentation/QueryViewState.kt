@@ -13,7 +13,8 @@ sealed class QueryViewState<out T> {
 
     object Idle : QueryViewState<Nothing>()
     object Loading : QueryViewState<Nothing>()
-    data class Result<out T>(val results: List<T>) : QueryViewState<T>()
-    data class Error(val error: ComicError) : QueryViewState<Nothing>()
+    data class Result<out T>(val _results: List<T>) : QueryViewState<T>()
+    data class Error(val _error: ComicError) : QueryViewState<Nothing>()
 
 }
+

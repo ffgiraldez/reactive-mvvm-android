@@ -12,12 +12,12 @@ class QueryScreenDelegate(
         val adapter: QueryVolumeAdapter,
         private val navigator: Navigator
 ) {
-    fun onVolumeSelected(volume: Volume) =
+    fun onVolumeSelected(volume: Volume): Unit =
             navigator.to(Screen.Detail(volume))
 
-    fun onQueryChange(new: String) =
+    fun onQueryChange(new: String): Unit =
             with(suggestions) { query.value = new }
 
-    fun onSuggestionSelected(suggestion: String) =
+    fun onSuggestionSelected(suggestion: String): Unit =
             with(search) { query.value = suggestion }
 }
