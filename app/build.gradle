@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
     compileSdkVersion compile_sdk
@@ -77,9 +78,11 @@ dependencies {
 
     testImplementation libs.arch_comp_room_test
     testImplementation libs.arch_comp_test
-    testImplementation libs.junit
+    testImplementation libs.junit_api
     testImplementation libs.koin_test
     testImplementation libs.mockito_kotlin
+
+    testRuntimeOnly libs.junit_engine
 }
 repositories {
     mavenCentral()
