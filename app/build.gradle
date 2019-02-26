@@ -79,6 +79,7 @@ dependencies {
     testImplementation libs.arch_comp_room_test
     testImplementation libs.arch_comp_test
     testImplementation libs.junit_api
+    testImplementation libs.kotlintest
     testImplementation libs.koin_test
     testImplementation libs.mockito_kotlin
 
