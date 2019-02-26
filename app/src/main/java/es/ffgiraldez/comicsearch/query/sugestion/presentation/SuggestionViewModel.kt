@@ -2,6 +2,7 @@ package es.ffgiraldez.comicsearch.query.sugestion.presentation
 
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryStateViewModel
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
+import es.ffgiraldez.comicsearch.query.base.presentation.toViewState
 import es.ffgiraldez.comicsearch.query.sugestion.data.SuggestionRepository
 import io.reactivex.Flowable
 import org.reactivestreams.Publisher
@@ -15,6 +16,7 @@ class SuggestionViewModel private constructor(
             it.debounce(400, TimeUnit.MILLISECONDS)
                     .switchMap { query -> handleQuery(query, repo) }
                     .startWith(QueryViewState.idle())
+                    .distinctUntilChanged()
         }
 
         private fun handleQuery(
@@ -32,12 +34,7 @@ class SuggestionViewModel private constructor(
                 query: String
         ): Flowable<QueryViewState<String>> =
                 repo.findByTerm(query)
-                        .map { suggestions ->
-                            suggestions.fold({
-                                QueryViewState.error<String>(it)
-                            }, {
-                                QueryViewState.result(it)
-                            })
-                        }.startWith(QueryViewState.loading())
+                        .map { it.toViewState() }
+                        .startWith(QueryViewState.loading())
     }
 }
