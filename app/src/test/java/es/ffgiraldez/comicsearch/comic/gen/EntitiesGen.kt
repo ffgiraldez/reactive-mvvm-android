@@ -5,7 +5,9 @@ import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.platform.left
 import es.ffgiraldez.comicsearch.platform.right
+import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import io.kotlintest.properties.Gen
+import io.kotlintest.properties.filterIsInstance
 
 class ComicErrorGenerator : Gen<ComicError> {
     override fun constants(): Iterable<ComicError> = emptyList()
@@ -67,8 +69,18 @@ class SearchGenerator : Gen<Either<ComicError, List<Volume>>> {
     }
 }
 
-
 fun Gen.Companion.suggestions(): Gen<Either<ComicError, List<String>>> = SuggestionGenerator()
+
+fun Gen.Companion.suggestionsViewState(): Gen<QueryViewState<String>> = Gen.suggestions().map { suggestion ->
+    suggestion.fold(
+            { QueryViewState.error<String>(it) },
+            { QueryViewState.result(it) }
+    )
+}
+
+fun Gen.Companion.suggestionsErrorViewState(): Gen<QueryViewState.Error> = suggestionsViewState().filterIsInstance()
+
+fun Gen.Companion.suggestionsResultViewState(): Gen<QueryViewState.Result<String>> = suggestionsViewState().filterIsInstance()
 
 fun Gen.Companion.search(): Gen<Either<ComicError, List<Volume>>> = SearchGenerator()
 
