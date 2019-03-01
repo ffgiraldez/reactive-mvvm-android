@@ -26,8 +26,8 @@ interface ClickConsumer : Consumer<SearchSuggestion>
 interface SearchConsumer : Consumer<String>
 
 @BindingAdapter("on_suggestion_click", "on_search", requireAll = false)
-fun bindSuggestionClick(search: FloatingSearchView, clickConsumer: ClickConsumer?, searchConsumer: SearchConsumer?) {
-    search.setOnSearchListener(object : FloatingSearchView.OnSearchListener {
+fun FloatingSearchView.bindSuggestionClick(clickConsumer: ClickConsumer?, searchConsumer: SearchConsumer?) {
+    setOnSearchListener(object : FloatingSearchView.OnSearchListener {
         override fun onSearchAction(currentQuery: String) {
             searchConsumer?.apply { searchConsumer.accept(currentQuery) }
         }
@@ -37,7 +37,7 @@ fun bindSuggestionClick(search: FloatingSearchView, clickConsumer: ClickConsumer
                 when (searchSuggestion) {
                     is ResultSuggestion -> {
                         clickConsumer.accept(searchSuggestion)
-                        search.setSearchFocused(false)
+                        setSearchFocused(false)
                     }
                 }
             }
@@ -49,32 +49,32 @@ fun bindSuggestionClick(search: FloatingSearchView, clickConsumer: ClickConsumer
  * Limit scope to apply using RecyclerView as BindingAdapter
  */
 @BindingAdapter("adapter", "state_change", "on_selected", requireAll = false)
-fun bindStateData(recycler: RecyclerView, inputAdapter: QueryVolumeAdapter, data: QueryViewState<Volume>?, consumer: OnVolumeSelectedListener) =
-        with(recycler) {
-            if (adapter == null) {
-                inputAdapter.onVolumeSelectedListener = consumer
-                adapter = inputAdapter
-            }
+fun RecyclerView.bindStateData(inputAdapter: QueryVolumeAdapter, data: QueryViewState<Volume>?, consumer: OnVolumeSelectedListener) {
+    if (adapter == null) {
+        inputAdapter.onVolumeSelectedListener = consumer
+        adapter = inputAdapter
+    }
 
-            data?.let {
-                bindError(data.error)
-                bindResults(data.results)
-            }
-        }
+    data?.let {
+        bindError(data.error)
+        bindResults(data.results)
+    }
+}
+
 
 @BindingAdapter("state_change")
-fun bindStateVisibility(errorContainer: FrameLayout, data: QueryViewState<Volume>?) = data?.let { state ->
-    state.error.fold({ View.GONE }, { View.VISIBLE }).let { errorContainer.visibility = it }
+fun FrameLayout.bindStateVisibility(data: QueryViewState<Volume>?) = data?.let { state ->
+    state.error.fold({ View.GONE }, { View.VISIBLE }).let { visibility = it }
 }
 
 @BindingAdapter("state_change")
-fun bindErrorText(errorText: TextView, data: QueryViewState<Volume>?) = data?.let { state ->
-    state.error.fold({ Unit }, { errorText.text = it.toHumanResponse() })
+fun TextView.bindErrorText(data: QueryViewState<Volume>?) = data?.let { state ->
+    state.error.fold({ Unit }, { text = it.toHumanResponse() })
 }
 
 @BindingAdapter("state_change")
-fun bindProgress(progress: ProgressBar, data: QueryViewState<Volume>?) = data?.let { state ->
-    progress.gone(!state.loading)
+fun ProgressBar.bindProgress(data: QueryViewState<Volume>?) = data?.let { state ->
+    gone(!state.loading)
 }
 
 private fun RecyclerView.bindError(error: Option<ComicError>): Unit =
