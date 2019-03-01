@@ -40,6 +40,20 @@ class SuggestionGenerator : Gen<Either<ComicError, List<String>>> {
     }
 }
 
+class SuggestionViewStateGenerator : Gen<QueryViewState<String>> {
+    override fun constants(): Iterable<QueryViewState<String>> = listOf(
+            QueryViewState.idle(),
+            QueryViewState.loading()
+    )
+
+    override fun random(): Sequence<QueryViewState<String>> = Gen.suggestions().random().map { suggestion ->
+        suggestion.fold(
+                { QueryViewState.error<String>(it) },
+                { QueryViewState.result(it) }
+        )
+    }
+}
+
 class VolumeGenerator : Gen<Volume> {
     override fun constants(): Iterable<Volume> = emptyList()
 
