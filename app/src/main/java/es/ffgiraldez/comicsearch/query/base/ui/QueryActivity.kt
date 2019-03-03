@@ -21,7 +21,7 @@ class QueryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataBindingUtil.setContentView<QueryActivityBinding>(this, R.layout.query_activity).also {
-            it.setLifecycleOwner(this@QueryActivity)
+            it.setLifecycleOwner(this)
             it.delegate = QueryScreenDelegate(suggestionViewModel, searchViewModel, QueryVolumeAdapter(), navigator)
         }
     }

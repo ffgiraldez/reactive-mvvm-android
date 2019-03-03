@@ -76,11 +76,17 @@ dependencies {
     implementation libs.rx_android
     implementation libs.steho
 
-    testImplementation libs.arch_comp_room_test
-    testImplementation libs.arch_comp_test
+    testImplementation (libs.arch_comp_room_test) {
+        exclude module: 'junit'
+    }
+    testImplementation (libs.arch_comp_test) {
+        exclude module: 'junit'
+    }
     testImplementation libs.junit_api
     testImplementation libs.kotlintest
-    testImplementation libs.koin_test
+    testImplementation (libs.koin_test) {
+        exclude module: 'junit'
+    }
     testImplementation libs.mockito_kotlin
 
     testRuntimeOnly libs.junit_engine
