@@ -12,6 +12,6 @@ sealed class QuerySearchSuggestion(
     data class ResultSuggestion(val volume: String) : QuerySearchSuggestion(volume)
 
     @Parcelize
-    data class ErrorSuggestion(val volume: String) : QuerySearchSuggestion(volume)
+    data class ErrorSuggestion(val error: String) : QuerySearchSuggestion(error)
 
 }

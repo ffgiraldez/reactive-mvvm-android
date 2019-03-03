@@ -5,7 +5,9 @@ import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.platform.left
 import es.ffgiraldez.comicsearch.platform.right
+import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import io.kotlintest.properties.Gen
+import io.kotlintest.properties.filterIsInstance
 
 class ComicErrorGenerator : Gen<ComicError> {
     override fun constants(): Iterable<ComicError> = emptyList()
@@ -38,6 +40,20 @@ class SuggestionGenerator : Gen<Either<ComicError, List<String>>> {
     }
 }
 
+class SuggestionViewStateGenerator : Gen<QueryViewState<String>> {
+    override fun constants(): Iterable<QueryViewState<String>> = listOf(
+            QueryViewState.idle(),
+            QueryViewState.loading()
+    )
+
+    override fun random(): Sequence<QueryViewState<String>> = Gen.suggestions().random().map { suggestion ->
+        suggestion.fold(
+                { QueryViewState.error<String>(it) },
+                { QueryViewState.result(it) }
+        )
+    }
+}
+
 class VolumeGenerator : Gen<Volume> {
     override fun constants(): Iterable<Volume> = emptyList()
 
@@ -67,8 +83,28 @@ class SearchGenerator : Gen<Either<ComicError, List<Volume>>> {
     }
 }
 
+class SearchViewStateGenerator : Gen<QueryViewState<Volume>> {
+    override fun constants(): Iterable<QueryViewState<Volume>> = listOf(
+            QueryViewState.idle(),
+            QueryViewState.loading()
+    )
+
+    override fun random(): Sequence<QueryViewState<Volume>> = Gen.search().random().map { search ->
+        search.fold(
+                { QueryViewState.error<Volume>(it) },
+                { QueryViewState.result(it) }
+        )
+    }
+
+}
 
 fun Gen.Companion.suggestions(): Gen<Either<ComicError, List<String>>> = SuggestionGenerator()
+
+fun Gen.Companion.suggestionsViewState(): Gen<QueryViewState<String>> = SuggestionViewStateGenerator()
+
+fun Gen.Companion.suggestionsErrorViewState(): Gen<QueryViewState.Error> = suggestionsViewState().filterIsInstance()
+
+fun Gen.Companion.suggestionsResultViewState(): Gen<QueryViewState.Result<String>> = suggestionsViewState().filterIsInstance()
 
 fun Gen.Companion.search(): Gen<Either<ComicError, List<Volume>>> = SearchGenerator()
 
@@ -77,3 +113,9 @@ fun Gen.Companion.comicError(): Gen<ComicError> = ComicErrorGenerator()
 fun Gen.Companion.query(): Gen<String> = QueryGenerator()
 
 fun Gen.Companion.volume(): Gen<Volume> = VolumeGenerator()
+
+fun Gen.Companion.searchViewState(): Gen<QueryViewState<Volume>> = SearchViewStateGenerator()
+
+fun Gen.Companion.searchErrorViewState(): Gen<QueryViewState.Error> = searchViewState().filterIsInstance()
+
+fun Gen.Companion.searchResultViewState(): Gen<QueryViewState.Result<Volume>> = searchViewState().filterIsInstance()

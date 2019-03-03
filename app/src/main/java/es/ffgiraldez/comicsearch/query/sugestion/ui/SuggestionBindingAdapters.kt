@@ -11,19 +11,18 @@ import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
 
 @BindingAdapter("on_change")
-fun bindQueryChangeListener(
-        search: FloatingSearchView,
+fun FloatingSearchView.bindQueryChangeListener(
         listener: FloatingSearchView.OnQueryChangeListener
-): Unit = search.setOnQueryChangeListener(listener)
+): Unit = setOnQueryChangeListener(listener)
 
 @BindingAdapter("state_change")
-fun bindSuggestions(search: FloatingSearchView, data: QueryViewState<String>?): Unit? = data?.run {
-    search.toggleProgress(loading)
-    error.fold({
-        results.map { ResultSuggestion(it) }
+fun FloatingSearchView.bindSuggestions(data: QueryViewState<String>?): Unit? = data?.let { state ->
+    toggleProgress(state.loading)
+    state.error.fold({
+        state.results.map { ResultSuggestion(it) }
     }, {
         listOf(ErrorSuggestion(it.toHumanResponse()))
-    }).let { search.swapSuggestions(it) }
+    }).let(::swapSuggestions)
 }
 
 private fun FloatingSearchView.toggleProgress(show: Boolean): Unit = when (show) {
