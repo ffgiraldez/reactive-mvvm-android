@@ -41,7 +41,7 @@ abstract class ComicRepository<T> (
             results.fold({
                 Flowable.just(results)
             }, {
-                local.insert(term, it).toFlowable<Either<ComicError, List<T>>>()
+                local.insert(term, it).toFlowable()
             })
 
     private fun fetch(it: Some<Query>): Flowable<Either<EmptyResultsError, List<T>>> =

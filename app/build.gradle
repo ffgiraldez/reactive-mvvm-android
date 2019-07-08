@@ -35,6 +35,11 @@ android {
         enabled = true
     }
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
     androidExtensions {
         experimental = true
     }
@@ -46,6 +51,11 @@ kapt {
     }
 }
 
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
 
 dependencies {
     kapt libs.databinding_compiler
@@ -83,6 +93,7 @@ dependencies {
         exclude module: 'junit'
     }
     testImplementation libs.junit_api
+    testImplementation libs.junit_params
     testImplementation libs.kotlintest
     testImplementation (libs.koin_test) {
         exclude module: 'junit'
