@@ -21,11 +21,15 @@ My way to MVVM using RxJava with new Android databinding
 * koin
 * picasso
 
+### Testing
+* [KotlinTest][10]
+* [Android Junit 5][11]
+
 TODO LIST
 ---------
 
 * Better UI, with Material Design concepts and so on
-* Add unit tests, allways fail on that :( 
+* ~~Add unit tests, allways fail on that :(~~ :white_check_mark:
 
 Developed By
 ------------
@@ -42,7 +46,7 @@ Fernando Franco Giráldez - <ffrancogiraldez@gmail.com>
 License
 -------
 
-    Copyright 2018 Fernando Franco Giráldez
+    Copyright 2019 Fernando Franco Giráldez
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -64,3 +68,5 @@ License
 [7]: https://developer.android.com/topic/libraries/architecture/room.html
 [8]: https://developer.android.com/topic/libraries/architecture/livedata.html
 [9]: https://developer.android.com/topic/libraries/architecture/viewmodel.html
+[10]: https://github.com/kotlintest/kotlintest
+[11]: https://github.com/mannodermaus/android-junit5
