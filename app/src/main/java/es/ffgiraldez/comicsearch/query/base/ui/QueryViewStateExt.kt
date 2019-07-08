@@ -11,6 +11,9 @@ val <T>QueryViewState<T>.error: Option<ComicError>
         else -> Option.empty()
     }
 
+val <T>QueryViewState<T>.hasError: Boolean
+    get() = !error.isEmpty()
+
 val <T>QueryViewState<T>.results: List<T>
     get() = when (this) {
         is QueryViewState.Result -> _results

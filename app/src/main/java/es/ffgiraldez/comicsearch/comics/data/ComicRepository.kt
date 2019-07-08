@@ -18,23 +18,23 @@ abstract class ComicRepository<T> (
 ) {
     fun findByTerm(term: String): Flowable<Either<ComicError, List<T>>> =
             local.findQueryByTerm(term)
-                    .flatMap { findSuggestions(it, term) }
+                    .flatMap { find(it, term) }
 
-    private fun findSuggestions(
+    private fun find(
             query: Option<Query>,
             term: String
     ): Flowable<out Either<ComicError, List<T>>> = when (query) {
-        is None -> searchSuggestions(term)
-        is Some -> fetchSuggestions(query)
+        is None -> search(term)
+        is Some -> fetch(query)
     }
 
-    private fun searchSuggestions(term: String): Flowable<Either<ComicError, List<T>>> =
+    private fun search(term: String): Flowable<Either<ComicError, List<T>>> =
             remote.findByTerm(term)
                     .map { right<ComicError, List<T>>(it) }
                     .onErrorReturn { left<ComicError, List<T>>(NetworkError) }
-                    .flatMapPublisher { saveSuggestions(it, term) }
+                    .flatMapPublisher { save(it, term) }
 
-    private fun saveSuggestions(
+    private fun save(
             results: Either<ComicError, List<T>>,
             term: String
     ): Flowable<Either<ComicError, List<T>>> =
@@ -44,7 +44,7 @@ abstract class ComicRepository<T> (
                 local.insert(term, it).toFlowable<Either<ComicError, List<T>>>()
             })
 
-    private fun fetchSuggestions(it: Some<Query>): Flowable<Either<EmptyResultsError, List<T>>> =
+    private fun fetch(it: Some<Query>): Flowable<Either<EmptyResultsError, List<T>>> =
             local.findByQuery(it.t)
                     .map {
                         when (it.isEmpty()) {

@@ -6,10 +6,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import arrow.core.Option
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
-import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.platform.gone
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
@@ -17,6 +15,7 @@ import es.ffgiraldez.comicsearch.query.base.ui.OnVolumeSelectedListener
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.QueryVolumeAdapter
 import es.ffgiraldez.comicsearch.query.base.ui.error
+import es.ffgiraldez.comicsearch.query.base.ui.hasError
 import es.ffgiraldez.comicsearch.query.base.ui.loading
 import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
@@ -56,7 +55,7 @@ fun RecyclerView.bindStateData(inputAdapter: QueryVolumeAdapter, data: QueryView
     }
 
     data?.let {
-        bindError(data.error)
+        bindError(data.hasError)
         bindResults(data.results)
     }
 }
@@ -77,8 +76,8 @@ fun ProgressBar.bindProgress(data: QueryViewState<Volume>?) = data?.let { state 
     gone(!state.loading)
 }
 
-private fun RecyclerView.bindError(error: Option<ComicError>): Unit =
-        error.fold({ View.VISIBLE }, { View.GONE }).let { this.visibility = it }
+private fun RecyclerView.bindError(error: Boolean): Unit =
+        gone(error)
 
 private fun RecyclerView.bindResults(error: List<Volume>): Unit = with(adapter as QueryVolumeAdapter) {
     this.submitList(error)
