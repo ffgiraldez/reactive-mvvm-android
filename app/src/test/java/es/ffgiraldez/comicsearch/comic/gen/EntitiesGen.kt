@@ -40,6 +40,14 @@ class SuggestionGenerator : Gen<Either<ComicError, List<String>>> {
     }
 }
 
+class SuggestionResultGenerator : Gen<List<String>> {
+    override fun constants(): Iterable<List<String>> = emptyList()
+
+    override fun random(): Sequence<List<String>> = generateSequence<List<String>> {
+        (1..10).fold(emptyList()) { acc, _ -> acc + Gen.query().random().iterator().next() }
+    }
+}
+
 class SuggestionViewStateGenerator : Gen<QueryViewState<String>> {
     override fun constants(): Iterable<QueryViewState<String>> = listOf(
             QueryViewState.idle(),
@@ -65,6 +73,17 @@ class VolumeGenerator : Gen<Volume> {
         )
     }
 
+}
+
+class VolumeResultGenerator : Gen<List<Volume>> {
+    override fun constants(): Iterable<List<Volume>> = emptyList()
+
+    override fun random(): Sequence<List<Volume>> = generateSequence<List<Volume>> {
+        (1..10).fold(emptyList()) { acc, _ ->
+            acc + Gen.volume().random().iterator().next()
+        }
+
+    }
 }
 
 class SearchGenerator : Gen<Either<ComicError, List<Volume>>> {
@@ -100,6 +119,8 @@ class SearchViewStateGenerator : Gen<QueryViewState<Volume>> {
 
 fun Gen.Companion.suggestions(): Gen<Either<ComicError, List<String>>> = SuggestionGenerator()
 
+fun Gen.Companion.suggestionList(): Gen<List<String>> = SuggestionResultGenerator()
+
 fun Gen.Companion.suggestionsViewState(): Gen<QueryViewState<String>> = SuggestionViewStateGenerator()
 
 fun Gen.Companion.suggestionsErrorViewState(): Gen<QueryViewState.Error> = suggestionsViewState().filterIsInstance()
@@ -113,6 +134,8 @@ fun Gen.Companion.comicError(): Gen<ComicError> = ComicErrorGenerator()
 fun Gen.Companion.query(): Gen<String> = QueryGenerator()
 
 fun Gen.Companion.volume(): Gen<Volume> = VolumeGenerator()
+
+fun Gen.Companion.volumeList(): Gen<List<Volume>> = VolumeResultGenerator()
 
 fun Gen.Companion.searchViewState(): Gen<QueryViewState<Volume>> = SearchViewStateGenerator()
 
