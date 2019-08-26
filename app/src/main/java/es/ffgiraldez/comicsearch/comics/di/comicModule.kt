@@ -6,7 +6,7 @@ import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
 import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
