@@ -22,7 +22,7 @@ My way to MVVM using RxJava with new Android databinding
 * picasso
 
 ### Testing
-* [KotlinTest][10]
+* [Kotest][10]
 * [Android Junit 5][11]
 
 TODO LIST
@@ -68,5 +68,5 @@ License
 [7]: https://developer.android.com/topic/libraries/architecture/room.html
 [8]: https://developer.android.com/topic/libraries/architecture/livedata.html
 [9]: https://developer.android.com/topic/libraries/architecture/viewmodel.html
-[10]: https://github.com/kotlintest/kotlintest
+[10]: https://kotest.io
 [11]: https://github.com/mannodermaus/android-junit5

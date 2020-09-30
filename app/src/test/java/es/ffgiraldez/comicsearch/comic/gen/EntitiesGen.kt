@@ -6,139 +6,92 @@ import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.platform.left
 import es.ffgiraldez.comicsearch.platform.right
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
-import io.kotlintest.properties.Gen
-import io.kotlintest.properties.filterIsInstance
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.arb
+import io.kotest.property.arbitrary.bind
+import io.kotest.property.arbitrary.bool
+import io.kotest.property.arbitrary.filter
+import io.kotest.property.arbitrary.map
+import io.kotest.property.arbitrary.next
+import io.kotest.property.arbitrary.string
 
-class ComicErrorGenerator : Gen<ComicError> {
-    override fun constants(): Iterable<ComicError> = emptyList()
-
-    override fun random(): Sequence<ComicError> = generateSequence {
-        takeIf { Gen.bool().random().first() }
-                ?.let { ComicError.EmptyResultsError } ?: ComicError.NetworkError
-    }
-}
-
-class QueryGenerator : Gen<String> {
-    override fun constants(): Iterable<String> = Gen.string().constants().filter { it.isNotEmpty() }
-
-    override fun random(): Sequence<String> = Gen.string().random().filter { it.isNotEmpty() }
-}
-
-class SuggestionGenerator : Gen<Either<ComicError, List<String>>> {
-    override fun constants(): Iterable<Either<ComicError, List<String>>> = emptyList()
-
-    override fun random(): Sequence<Either<ComicError, List<String>>> = generateSequence {
-        generateEither(Gen.bool().random().first())
-    }
-
-    private fun generateEither(it: Boolean): Either<ComicError, List<String>> {
-        return if (it) {
-            left(Gen.comicError().random().first())
-        } else {
-            right((1..10).fold(emptyList()) { acc, _ -> acc + Gen.query().random().iterator().next() })
+fun Arb.Companion.suggestions(): Arb<Either<ComicError, List<String>>> = arb {
+    generateSequence {
+        when (Arb.bool().next(it)) {
+            true -> left(Arb.comicError().next(it))
+            false -> right(Arb.suggestionList().next(it))
         }
     }
 }
 
-class SuggestionResultGenerator : Gen<List<String>> {
-    override fun constants(): Iterable<List<String>> = emptyList()
-
-    override fun random(): Sequence<List<String>> = generateSequence<List<String>> {
-        (1..10).fold(emptyList()) { acc, _ -> acc + Gen.query().random().iterator().next() }
+fun Arb.Companion.suggestionList(): Arb<List<String>> = arb {
+    generateSequence {
+        Arb.query().values(it).take(10).map { it.value }.toList()
     }
 }
 
-class SuggestionViewStateGenerator : Gen<QueryViewState<String>> {
-    override fun constants(): Iterable<QueryViewState<String>> = listOf(
-            QueryViewState.idle(),
-            QueryViewState.loading()
-    )
-
-    override fun random(): Sequence<QueryViewState<String>> = Gen.suggestions().random().map { suggestion ->
-        suggestion.fold(
-                { QueryViewState.error<String>(it) },
+fun Arb.Companion.suggestionsViewState(): Arb<QueryViewState<String>> = arb(
+        listOf(QueryViewState.idle(), QueryViewState.loading())
+) {
+    generateSequence {
+        Arb.suggestions().next(it).fold(
+                { QueryViewState.error(it) },
                 { QueryViewState.result(it) }
         )
     }
 }
 
-class VolumeGenerator : Gen<Volume> {
-    override fun constants(): Iterable<Volume> = emptyList()
+fun Arb.Companion.suggestionsErrorViewState(): Arb<QueryViewState.Error> = suggestionsViewState()
+        .filter { it is QueryViewState.Error }
+        .map { it as QueryViewState.Error }
 
-    override fun random(): Sequence<Volume> = generateSequence {
-        Volume(
-                Gen.string().random().first(),
-                Gen.string().random().first(),
-                Gen.string().random().first()
-        )
-    }
+fun Arb.Companion.suggestionsResultViewState(): Arb<QueryViewState.Result<String>> = suggestionsViewState()
+        .filter { it is QueryViewState.Result<String> }
+        .map { it as QueryViewState.Result<String> }
 
-}
-
-class VolumeResultGenerator : Gen<List<Volume>> {
-    override fun constants(): Iterable<List<Volume>> = emptyList()
-
-    override fun random(): Sequence<List<Volume>> = generateSequence<List<Volume>> {
-        (1..10).fold(emptyList()) { acc, _ ->
-            acc + Gen.volume().random().iterator().next()
-        }
-
-    }
-}
-
-class SearchGenerator : Gen<Either<ComicError, List<Volume>>> {
-    override fun constants(): Iterable<Either<ComicError, List<Volume>>> = emptyList()
-
-    override fun random(): Sequence<Either<ComicError, List<Volume>>> = generateSequence {
-        generateEither(Gen.bool().random().first())
-    }
-
-    private fun generateEither(it: Boolean): Either<ComicError, List<Volume>> {
-        return if (it) {
-            left(Gen.comicError().random().first())
-        } else {
-            right((1..10).fold(emptyList()) { acc, _ -> acc + Gen.volume().random().iterator().next() })
+fun Arb.Companion.search(): Arb<Either<ComicError, List<Volume>>> = arb {
+    generateSequence {
+        when (Arb.bool().next(it)) {
+            true -> left(Arb.comicError().next(it))
+            false -> right(Arb.volumeList().next(it))
         }
     }
 }
 
-class SearchViewStateGenerator : Gen<QueryViewState<Volume>> {
-    override fun constants(): Iterable<QueryViewState<Volume>> = listOf(
-            QueryViewState.idle(),
-            QueryViewState.loading()
-    )
+fun Arb.Companion.comicError(): Arb<ComicError> = arb { rs ->
+    generateSequence {
+        when (Arb.bool().next(rs)) {
+            true -> ComicError.EmptyResultsError
+            false -> ComicError.NetworkError
+        }
+    }
+}
 
-    override fun random(): Sequence<QueryViewState<Volume>> = Gen.search().random().map { search ->
-        search.fold(
-                { QueryViewState.error<Volume>(it) },
+fun Arb.Companion.query(): Arb<String> = Arb.string(minSize = 1, maxSize = 10)
+
+fun Arb.Companion.volume(): Arb<Volume> = Arb.bind(Arb.string(), Arb.string(), Arb.string(), ::Volume)
+
+fun Arb.Companion.volumeList(): Arb<List<Volume>> = arb {
+    generateSequence {
+        Arb.volume().values(it).take(10).map { it.value }.toList()
+    }
+}
+
+fun Arb.Companion.searchViewState(): Arb<QueryViewState<Volume>> = arb(
+        listOf(QueryViewState.idle(), QueryViewState.loading())
+) {
+    generateSequence {
+        Arb.search().next(it).fold(
+                { QueryViewState.error(it) },
                 { QueryViewState.result(it) }
         )
     }
-
 }
 
-fun Gen.Companion.suggestions(): Gen<Either<ComicError, List<String>>> = SuggestionGenerator()
+fun Arb.Companion.searchErrorViewState(): Arb<QueryViewState.Error> = searchViewState()
+        .filter { it is QueryViewState.Error }
+        .map { it as QueryViewState.Error }
 
-fun Gen.Companion.suggestionList(): Gen<List<String>> = SuggestionResultGenerator()
-
-fun Gen.Companion.suggestionsViewState(): Gen<QueryViewState<String>> = SuggestionViewStateGenerator()
-
-fun Gen.Companion.suggestionsErrorViewState(): Gen<QueryViewState.Error> = suggestionsViewState().filterIsInstance()
-
-fun Gen.Companion.suggestionsResultViewState(): Gen<QueryViewState.Result<String>> = suggestionsViewState().filterIsInstance()
-
-fun Gen.Companion.search(): Gen<Either<ComicError, List<Volume>>> = SearchGenerator()
-
-fun Gen.Companion.comicError(): Gen<ComicError> = ComicErrorGenerator()
-
-fun Gen.Companion.query(): Gen<String> = QueryGenerator()
-
-fun Gen.Companion.volume(): Gen<Volume> = VolumeGenerator()
-
-fun Gen.Companion.volumeList(): Gen<List<Volume>> = VolumeResultGenerator()
-
-fun Gen.Companion.searchViewState(): Gen<QueryViewState<Volume>> = SearchViewStateGenerator()
-
-fun Gen.Companion.searchErrorViewState(): Gen<QueryViewState.Error> = searchViewState().filterIsInstance()
-
-fun Gen.Companion.searchResultViewState(): Gen<QueryViewState.Result<Volume>> = searchViewState().filterIsInstance()
+fun Arb.Companion.searchResultViewState(): Arb<QueryViewState.Result<Volume>> = searchViewState()
+        .filter { it is QueryViewState.Result<Volume> }
+        .map { it as QueryViewState.Result<Volume> }

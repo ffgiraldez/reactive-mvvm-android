@@ -1,18 +1,13 @@
 package es.ffgiraldez.comicsearch.query.base.ui
 
-import arrow.core.Option
-import arrow.core.toOption
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 
-val <T>QueryViewState<T>.error: Option<ComicError>
+val <T>QueryViewState<T>.error: ComicError?
     get() = when (this) {
-        is QueryViewState.Error -> _error.toOption()
-        else -> Option.empty()
+        is QueryViewState.Error -> _error
+        else -> null
     }
-
-val <T>QueryViewState<T>.hasError: Boolean
-    get() = !error.isEmpty()
 
 val <T>QueryViewState<T>.results: List<T>
     get() = when (this) {

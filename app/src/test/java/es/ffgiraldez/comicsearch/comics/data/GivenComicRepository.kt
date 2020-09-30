@@ -1,26 +1,20 @@
 package es.ffgiraldez.comicsearch.comics.data
 
-import arrow.core.Option
-import arrow.core.toOption
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import es.ffgiraldez.comicsearch.comic.gen.suggestionList
 import es.ffgiraldez.comicsearch.comic.gen.volumeList
 import es.ffgiraldez.comicsearch.comics.domain.Query
+import es.ffgiraldez.comicsearch.platform.Option
+import es.ffgiraldez.comicsearch.platform.toOption
 import es.ffgiraldez.comicsearch.query.search.data.SearchRepository
 import es.ffgiraldez.comicsearch.query.sugestion.data.SuggestionRepository
-import io.kotlintest.properties.Gen
+import io.kotest.property.Arb
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.processors.BehaviorProcessor
 import io.reactivex.processors.FlowableProcessor
-import io.reactivex.processors.PublishProcessor
-import io.reactivex.processors.ReplayProcessor
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.ReplaySubject
-import io.reactivex.subjects.Subject
 import org.junit.jupiter.params.provider.Arguments
 import java.util.stream.Stream
 
@@ -64,7 +58,7 @@ interface GivenComicRepository {
     }
 
     fun <T> ComicRemoteDataSource<T>.withError(): ComicRemoteDataSource<T> = apply {
-        whenever(findByTerm(any())).thenReturn(Single.error{ RuntimeException("BOOM!")})
+        whenever(findByTerm(any())).thenReturn(Single.error { RuntimeException("BOOM!") })
     }
 
     fun <T> ComicRemoteDataSource<T>.withValues(results: List<T> = emptyList()): ComicRemoteDataSource<T> = apply {
@@ -79,8 +73,7 @@ interface GivenComicRepository {
         whenever(findQueryByTerm(any())).thenReturn(localQuery)
         whenever(findByQuery(any())).thenReturn(localResults())
     }
-
-
+    
     companion object {
         const val givenComicRepositoryMethodSource: String = "es.ffgiraldez.comicsearch.comics.data.GivenComicRepository#arguments"
         const val expectedTerm = "Batman"
@@ -88,11 +81,11 @@ interface GivenComicRepository {
         @JvmStatic
         @Suppress("unused")
         fun arguments(): Stream<Arguments> = Stream.of(
-                build(mock(), mock(), Gen.suggestionList(), ::SuggestionRepository),
-                build(mock(), mock(), Gen.volumeList(), ::SearchRepository)
+                build(mock(), mock(), Arb.suggestionList(), ::SuggestionRepository),
+                build(mock(), mock(), Arb.volumeList(), ::SearchRepository)
         )
 
-        private fun <A, B, C> build(local: A, remote: B, result: Gen<List<C>>, repo: (A, B) -> ComicRepository<C>): Arguments =
+        private fun <A, B, C> build(local: A, remote: B, result: Arb<List<C>>, repo: (A, B) -> ComicRepository<C>): Arguments =
                 Arguments.of(local, remote, result, repo(local, remote))
     }
 }

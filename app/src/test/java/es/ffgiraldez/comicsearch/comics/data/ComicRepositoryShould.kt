@@ -8,7 +8,9 @@ import es.ffgiraldez.comicsearch.comics.domain.ComicError.EmptyResultsError
 import es.ffgiraldez.comicsearch.comics.domain.ComicError.NetworkError
 import es.ffgiraldez.comicsearch.platform.left
 import es.ffgiraldez.comicsearch.platform.right
-import io.kotlintest.properties.Gen
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.next
+
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
@@ -20,7 +22,7 @@ class ComicRepositoryShould
     fun <T> `return EmptyResultsError when local query does not have results`(
             localDataSource: ComicLocalDataSource<T>,
             remoteDataSource: ComicRemoteDataSource<T>,
-            generator: Gen<List<T>>,
+            generator: Arb<List<T>>,
             repository: ComicRepository<T>
     ) {
         localDataSource.withValues(term = expectedTerm, results = emptyList())
@@ -35,10 +37,10 @@ class ComicRepositoryShould
     fun <T> `return results list when local query does have results`(
             localDataSource: ComicLocalDataSource<T>,
             remoteDataSource: ComicRemoteDataSource<T>,
-            generator: Gen<List<T>>,
+            generator: Arb<List<T>>,
             repository: ComicRepository<T>
     ) {
-        val expectedList = generator.random().first()
+        val expectedList = generator.next()
         localDataSource.withValues(term = expectedTerm, results = expectedList)
 
         val observer = repository.findByTerm(expectedTerm).test()
@@ -51,7 +53,7 @@ class ComicRepositoryShould
     fun <T> `ask for remote result when does not have local query`(
             localDataSource: ComicLocalDataSource<T>,
             remoteDataSource: ComicRemoteDataSource<T>,
-            generator: Gen<List<T>>,
+            generator: Arb<List<T>>,
             repository: ComicRepository<T>
     ) {
         localDataSource.withoutValues()
@@ -68,10 +70,10 @@ class ComicRepositoryShould
     fun <T> `safe remote result on local when does not have local query`(
             localDataSource: ComicLocalDataSource<T>,
             remoteDataSource: ComicRemoteDataSource<T>,
-            generator: Gen<List<T>>,
+            generator: Arb<List<T>>,
             repository: ComicRepository<T>
     ) {
-        val expected = generator.random().first()
+        val expected = generator.next()
         localDataSource.withoutValues()
         remoteDataSource.withValues(results = expected)
 
@@ -85,7 +87,7 @@ class ComicRepositoryShould
     fun <T> `return EmptyResultError when local and remote does not have results`(
             localDataSource: ComicLocalDataSource<T>,
             remoteDataSource: ComicRemoteDataSource<T>,
-            generator: Gen<List<T>>,
+            generator: Arb<List<T>>,
             repository: ComicRepository<T>
     ) {
         localDataSource
@@ -103,7 +105,7 @@ class ComicRepositoryShould
     fun <T> `return NetworkError when local does not have results and remote fails`(
             localDataSource: ComicLocalDataSource<T>,
             remoteDataSource: ComicRemoteDataSource<T>,
-            generator: Gen<List<T>>,
+            generator: Arb<List<T>>,
             repository: ComicRepository<T>
     ) {
         localDataSource.withoutValues()
@@ -119,10 +121,10 @@ class ComicRepositoryShould
     fun <T> `return results list when local does not have results but remote have results`(
             localDataSource: ComicLocalDataSource<T>,
             remoteDataSource: ComicRemoteDataSource<T>,
-            generator: Gen<List<T>>,
+            generator: Arb<List<T>>,
             repository: ComicRepository<T>
     ) {
-        val expected = generator.random().first()
+        val expected = generator.next()
         localDataSource.withoutValues()
                 .withSave()
         remoteDataSource.withValues(results = expected)

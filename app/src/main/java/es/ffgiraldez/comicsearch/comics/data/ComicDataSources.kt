@@ -1,7 +1,7 @@
 package es.ffgiraldez.comicsearch.comics.data
 
-import arrow.core.Option
 import es.ffgiraldez.comicsearch.comics.domain.Query
+import es.ffgiraldez.comicsearch.platform.Option
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
