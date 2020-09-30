@@ -15,7 +15,6 @@ import es.ffgiraldez.comicsearch.query.base.ui.OnVolumeSelectedListener
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSuggestion
 import es.ffgiraldez.comicsearch.query.base.ui.QueryVolumeAdapter
 import es.ffgiraldez.comicsearch.query.base.ui.error
-import es.ffgiraldez.comicsearch.query.base.ui.hasError
 import es.ffgiraldez.comicsearch.query.base.ui.loading
 import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
@@ -55,29 +54,24 @@ fun RecyclerView.bindStateData(inputAdapter: QueryVolumeAdapter, data: QueryView
     }
 
     data?.let {
-        bindError(data.hasError)
+        gone(data.error != null)
         bindResults(data.results)
     }
 }
 
 
 @BindingAdapter("state_change")
-fun FrameLayout.bindStateVisibility(data: QueryViewState<Volume>?) = data?.let { state ->
-    state.error.fold({ View.GONE }, { View.VISIBLE }).let { visibility = it }
+fun FrameLayout.bindStateVisibility(data: QueryViewState<Volume>?) = data?.run {
+    visibility = error?.let { View.VISIBLE } ?: View.GONE
 }
 
 @BindingAdapter("state_change")
-fun TextView.bindErrorText(data: QueryViewState<Volume>?) = data?.let { state ->
-    state.error.fold({ Unit }, { text = it.toHumanResponse() })
-}
+fun TextView.bindErrorText(data: QueryViewState<Volume>?) = data?.error?.run { text = toHumanResponse() }
 
 @BindingAdapter("state_change")
-fun ProgressBar.bindProgress(data: QueryViewState<Volume>?) = data?.let { state ->
-    gone(!state.loading)
+fun ProgressBar.bindProgress(data: QueryViewState<Volume>?) = data?.run {
+    gone(!loading)
 }
-
-private fun RecyclerView.bindError(error: Boolean): Unit =
-        gone(error)
 
 private fun RecyclerView.bindResults(error: List<Volume>): Unit = with(adapter as QueryVolumeAdapter) {
     this.submitList(error)

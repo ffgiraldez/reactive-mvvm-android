@@ -1,13 +1,13 @@
 package es.ffgiraldez.comicsearch.comics.data
 
-import arrow.core.Option
-import arrow.core.toOption
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import es.ffgiraldez.comicsearch.comic.gen.suggestionList
 import es.ffgiraldez.comicsearch.comic.gen.volumeList
 import es.ffgiraldez.comicsearch.comics.domain.Query
+import es.ffgiraldez.comicsearch.platform.Option
+import es.ffgiraldez.comicsearch.platform.toOption
 import es.ffgiraldez.comicsearch.query.search.data.SearchRepository
 import es.ffgiraldez.comicsearch.query.sugestion.data.SuggestionRepository
 import io.kotest.property.Arb

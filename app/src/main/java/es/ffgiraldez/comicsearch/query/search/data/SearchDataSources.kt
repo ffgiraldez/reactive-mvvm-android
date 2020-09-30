@@ -1,7 +1,5 @@
 package es.ffgiraldez.comicsearch.query.search.data
 
-import arrow.core.Option
-import arrow.core.toOption
 import es.ffgiraldez.comicsearch.comics.data.ComicLocalDataSource
 import es.ffgiraldez.comicsearch.comics.data.ComicRemoteDataSource
 import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
@@ -9,6 +7,8 @@ import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
 import es.ffgiraldez.comicsearch.comics.domain.Query
 import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.platform.ComicSchedulers
+import es.ffgiraldez.comicsearch.platform.Option
+import es.ffgiraldez.comicsearch.platform.toOption
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

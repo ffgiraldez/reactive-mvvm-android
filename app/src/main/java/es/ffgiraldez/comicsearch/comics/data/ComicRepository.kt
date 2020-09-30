@@ -1,13 +1,15 @@
 package es.ffgiraldez.comicsearch.comics.data
 
 import arrow.core.Either
+import arrow.core.Either.Left
+import arrow.core.Either.Right
 import arrow.core.None
-import arrow.core.Option
 import arrow.core.Some
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.comics.domain.ComicError.EmptyResultsError
 import es.ffgiraldez.comicsearch.comics.domain.ComicError.NetworkError
 import es.ffgiraldez.comicsearch.comics.domain.Query
+import es.ffgiraldez.comicsearch.platform.Option
 import es.ffgiraldez.comicsearch.platform.left
 import es.ffgiraldez.comicsearch.platform.right
 import io.reactivex.Flowable
@@ -24,8 +26,8 @@ abstract class ComicRepository<T> (
             query: Option<Query>,
             term: String
     ): Flowable<out Either<ComicError, List<T>>> = when (query) {
-        is None -> search(term)
-        is Some -> fetch(query)
+        is Left -> search(term)
+        is Right -> fetch(query)
     }
 
     private fun search(term: String): Flowable<Either<ComicError, List<T>>> =
@@ -44,8 +46,8 @@ abstract class ComicRepository<T> (
                 local.insert(term, it).toFlowable()
             })
 
-    private fun fetch(it: Some<Query>): Flowable<Either<EmptyResultsError, List<T>>> =
-            local.findByQuery(it.t)
+    private fun fetch(it: Right<Query>): Flowable<Either<EmptyResultsError, List<T>>> =
+            local.findByQuery(it.b)
                     .map {
                         when (it.isEmpty()) {
                             true -> Either.left(EmptyResultsError)
