@@ -2,7 +2,7 @@ package io.kotlintest.provided
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
-import io.kotlintest.AbstractProjectConfig
+import io.kotest.core.config.AbstractProjectConfig
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.schedulers.TestScheduler

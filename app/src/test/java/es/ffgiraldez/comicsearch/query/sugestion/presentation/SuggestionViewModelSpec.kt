@@ -8,10 +8,12 @@ import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.platform.toFlowable
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.presentation.toViewState
-import io.kotlintest.properties.Gen
-import io.kotlintest.properties.assertAll
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.property.Arb
+import io.kotest.property.checkAll
+
 import io.kotlintest.provided.ProjectConfig
-import io.kotlintest.specs.StringSpec
+
 import io.reactivex.Flowable
 import org.mockito.ArgumentMatchers.anyString
 import java.util.concurrent.TimeUnit.SECONDS
@@ -19,7 +21,7 @@ import java.util.concurrent.TimeUnit.SECONDS
 class SuggestionViewModelSpec :
         StringSpec({
             "Suggestion ViewModel should not trigger search for empty query" {
-                assertAll(Gen.suggestions()) { suggestions ->
+                checkAll(Arb.suggestions()) { suggestions ->
                     val viewModel = givenSuggestionViewModel(suggestions)
                     val observer = viewModel.state.toFlowable().test()
 
@@ -32,7 +34,7 @@ class SuggestionViewModelSpec :
             }
 
             "Suggestion ViewModel should trigger search for a valid query" {
-                assertAll(Gen.suggestions(), Gen.query()) { suggestions, query ->
+                checkAll(Arb.suggestions(), Arb.query()) { suggestions, query ->
                     val viewModel = givenSuggestionViewModel(suggestions)
                     val observer = viewModel.state.toFlowable().test()
                     val viewState = suggestions.toViewState()

@@ -23,9 +23,13 @@ import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ResultSugge
 import es.ffgiraldez.comicsearch.query.base.ui.QueryVolumeAdapter
 import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
-import io.kotlintest.properties.Gen
-import io.kotlintest.properties.assertAll
-import io.kotlintest.specs.WordSpec
+import io.kotest.core.spec.style.WordSpec
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.filterNot
+import io.kotest.property.arbitrary.next
+import io.kotest.property.arbitrary.string
+import io.kotest.property.checkAll
+
 
 class SearchBindingAdapterSpec : WordSpec({
     "ProgressBar" should {
@@ -46,7 +50,7 @@ class SearchBindingAdapterSpec : WordSpec({
         }
 
         "be gone on non loading state" {
-            assertAll(Gen.searchViewState().filterNot { it is QueryViewState.Loading }) { state ->
+            checkAll(Arb.searchViewState().filterNot { it is QueryViewState.Loading }) { state ->
                 val progressBar = mock<ProgressBar>()
 
                 progressBar.bindProgress(state)
@@ -68,7 +72,7 @@ class SearchBindingAdapterSpec : WordSpec({
         }
 
         "not have interaction on non error state" {
-            assertAll(Gen.searchViewState().filterNot { it is QueryViewState.Error }) { state ->
+            checkAll(Arb.searchViewState().filterNot { it is QueryViewState.Error }) { state ->
                 val textView = mock<TextView>()
 
                 textView.bindErrorText(state)
@@ -78,7 +82,7 @@ class SearchBindingAdapterSpec : WordSpec({
         }
 
         "show error human description on error state" {
-            assertAll(Gen.searchErrorViewState()) { state ->
+            checkAll(Arb.searchErrorViewState()) { state ->
                 val textView = mock<TextView>()
 
                 textView.bindErrorText(state)
@@ -98,7 +102,7 @@ class SearchBindingAdapterSpec : WordSpec({
         }
 
         "be gone on non error state" {
-            assertAll(Gen.searchViewState().filterNot { it is QueryViewState.Error }) { state ->
+            checkAll(Arb.searchViewState().filterNot { it is QueryViewState.Error }) { state ->
                 val frameLayout = mock<FrameLayout>()
 
                 frameLayout.bindStateVisibility(state)
@@ -109,7 +113,7 @@ class SearchBindingAdapterSpec : WordSpec({
         }
 
         "be visible on error state" {
-            assertAll(Gen.searchErrorViewState()) { state ->
+            checkAll(Arb.searchErrorViewState()) { state ->
                 val frameLayout = mock<FrameLayout>()
 
                 frameLayout.bindStateVisibility(state)
@@ -133,7 +137,7 @@ class SearchBindingAdapterSpec : WordSpec({
         }
 
         "update result list on state change" {
-            assertAll(Gen.searchViewState()) { state ->
+            checkAll(Arb.searchViewState()) { state ->
                 val adapter = mock<QueryVolumeAdapter>()
                 val recyclerView = mock<RecyclerView> {
                     on { getAdapter() }.thenReturn(adapter)
@@ -148,7 +152,7 @@ class SearchBindingAdapterSpec : WordSpec({
 
 
         "be visible on non error state" {
-            assertAll(Gen.searchViewState().filterNot { it is QueryViewState.Error }) { state ->
+            checkAll(Arb.searchViewState().filterNot { it is QueryViewState.Error }) { state ->
                 val adapter = mock<QueryVolumeAdapter>()
                 val recyclerView = mock<RecyclerView> {
                     on { getAdapter() }.thenReturn(adapter)
@@ -162,7 +166,7 @@ class SearchBindingAdapterSpec : WordSpec({
         }
 
         "be gone on non error state" {
-            assertAll(Gen.searchErrorViewState()) { state ->
+            checkAll(Arb.searchErrorViewState()) { state ->
                 val adapter = mock<QueryVolumeAdapter>()
                 val recyclerView = mock<RecyclerView> {
                     on { getAdapter() }.thenReturn(adapter)
@@ -187,7 +191,7 @@ class SearchBindingAdapterSpec : WordSpec({
 
             searchView.bindSuggestionClick(click, mock())
 
-            searchListenerCaptor.firstValue.onSuggestionClicked(ErrorSuggestion(Gen.string().random().first()))
+            searchListenerCaptor.firstValue.onSuggestionClicked(ErrorSuggestion(Arb.string().next()))
 
             verifyZeroInteractions(click)
         }
@@ -198,7 +202,7 @@ class SearchBindingAdapterSpec : WordSpec({
                 doNothing().whenever(it).setOnSearchListener(searchListenerCaptor.capture())
             }
             val click = mock<ClickConsumer>()
-            val suggestion = ResultSuggestion(Gen.string().random().first())
+            val suggestion = ResultSuggestion(Arb.string().next())
 
 
             searchView.bindSuggestionClick(click, mock())

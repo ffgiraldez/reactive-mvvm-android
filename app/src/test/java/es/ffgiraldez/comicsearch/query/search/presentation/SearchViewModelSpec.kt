@@ -9,16 +9,17 @@ import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.platform.toFlowable
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.presentation.toViewState
-import io.kotlintest.properties.Gen
-import io.kotlintest.properties.assertAll
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.property.Arb
+import io.kotest.property.checkAll
+
 import io.reactivex.Flowable
 import org.mockito.ArgumentMatchers.anyString
 
 class SearchViewModelSpec :
         StringSpec({
             "Search ViewModel should trigger search for a query" {
-                assertAll(Gen.search(), Gen.query()) { results, query ->
+                checkAll(Arb.search(), Arb.query()) { results, query ->
                     val viewModel = givenSuggestionViewModel(results)
                     val observer = viewModel.state.toFlowable().test()
                     val viewState = results.toViewState()

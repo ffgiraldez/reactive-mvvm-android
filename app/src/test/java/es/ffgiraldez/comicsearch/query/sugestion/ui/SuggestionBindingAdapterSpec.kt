@@ -13,9 +13,11 @@ import es.ffgiraldez.comicsearch.comic.gen.suggestionsErrorViewState
 import es.ffgiraldez.comicsearch.comic.gen.suggestionsResultViewState
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
-import io.kotlintest.properties.Gen
-import io.kotlintest.properties.assertAll
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.property.Arb
+import io.kotest.property.checkAll
+
+
 import org.junit.jupiter.api.Assertions.assertEquals
 
 
@@ -48,7 +50,7 @@ class SuggestionBindingAdapterSpec : StringSpec({
     }
 
     "FloatingSearchView should show human description on error state" {
-        assertAll(Gen.suggestionsErrorViewState()) { state ->
+        checkAll(Arb.suggestionsErrorViewState()) { state ->
             val captor = argumentCaptor<List<SearchSuggestion>>()
             val searchView = mock<FloatingSearchView> {
                 doNothing().whenever(it).swapSuggestions(captor.capture())
@@ -66,7 +68,7 @@ class SuggestionBindingAdapterSpec : StringSpec({
     }
 
     "FloatingSearchView should show results on result state" {
-        assertAll(Gen.suggestionsResultViewState()) { state ->
+        checkAll(Arb.suggestionsResultViewState()) { state ->
             val captor = argumentCaptor<List<SearchSuggestion>>()
             val searchView = mock<FloatingSearchView> {
                 doNothing().whenever(it).swapSuggestions(captor.capture())

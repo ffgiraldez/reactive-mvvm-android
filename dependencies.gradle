@@ -15,6 +15,7 @@ ext {
             retrofit               : '2.4.0',
             support                : '1.0.0',
             junit                  : '5.5.1'
+            kotest            : '4.2.5',
     ]
 
     build_plugins = [
@@ -46,9 +47,10 @@ ext {
             koin_architecture      : [group: 'org.koin', name: 'koin-android-viewmodel', version: versions.koin],
             koin_test              : [group: 'org.koin', name: 'koin-test', version: versions.koin],
             kotlin_stdlib          : [group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk7', version: versions.kotlin],
-            kotlintest             : [group: 'io.kotlintest', name: 'kotlintest-runner-junit5', version: '3.3.2'],
-            mockito_kotlin         : [group: 'com.nhaarman.mockitokotlin2', name: 'mockito-kotlin', version: '2.1.0'],
             picasso                : [group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'],
+            kotest_runner          : [group: 'io.kotest', name: 'kotest-runner-junit5-jvm', version: versions.kotest],
+            kotest_assertions      : [group: 'io.kotest', name: 'kotest-assertions-core-jvm', version: versions.kotest],
+            kotest_property        : [group: 'io.kotest', name: 'kotest-property-jvm', version: versions.kotest],
             retrofit               : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
             retrofit_gson          : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
             retrofit_rx_java       : [group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: versions.retrofit],

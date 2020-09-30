@@ -94,8 +94,10 @@ dependencies {
     }
     testImplementation libs.junit_api
     testImplementation libs.junit_params
-    testImplementation libs.kotlintest
-    testImplementation (libs.koin_test) {
+    testImplementation libs.kotest_runner
+    testImplementation libs.kotest_assertions
+    testImplementation libs.kotest_property
+    testImplementation(libs.koin_test) {
         exclude module: 'junit'
     }
     testImplementation libs.mockito_kotlin
