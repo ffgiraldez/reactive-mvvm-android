@@ -22,6 +22,16 @@ android {
         minSdkVersion min_sdk
         versionCode 1
         versionName "1.0"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"
+                ]
+            }
+        }
+
     }
 
     buildTypes {
@@ -45,12 +55,6 @@ android {
     }
 }
 
-kapt {
-    arguments {
-        arg("room.schemaLocation", "$projectDir/schemas".toString())
-    }
-}
-
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -58,26 +62,26 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 dependencies {
-    kapt libs.arch_comp_room_compiler
-    kaptTest libs.arch_comp_room_compiler
+    kapt libs.androidx_room_compiler
+    kaptTest libs.androidx_room_compiler
 
-    implementation libs.arch_comp_livedata
-    implementation libs.arch_comp_viewmodel
-    implementation libs.arch_comp_room
-    implementation libs.arch_comp_room_rxjava
+    implementation libs.androidx_constraint
+    implementation libs.androidx_livedata
+    implementation libs.androidx_room
+    implementation libs.androidx_room_rxjava
+    implementation libs.androidx_viewmodel
     implementation libs.arrow
-    implementation libs.constraint
-    implementation libs.design
     implementation(libs.floating_search) {
         exclude module: 'support-v4'
     }
+    implementation libs.material
     implementation libs.okhttp
     implementation libs.okhttp_logging
+    implementation libs.picasso
     implementation libs.koin
     implementation libs.koin_android
     implementation libs.koin_architecture
     implementation libs.kotlin_stdlib
-    implementation libs.picasso
     implementation libs.retrofit
     implementation libs.retrofit_gson
     implementation libs.retrofit_rx_java
@@ -85,22 +89,21 @@ dependencies {
     implementation libs.rx_android
     implementation libs.steho
 
-    testImplementation(libs.arch_comp_room_test) {
+    testImplementation(libs.androidx_room_test) {
         exclude module: 'junit'
     }
-    testImplementation(libs.arch_comp_test) {
+    testImplementation(libs.androidx_test) {
         exclude module: 'junit'
     }
     testImplementation libs.junit_api
     testImplementation libs.junit_params
+    testImplementation libs.mockito_kotlin
     testImplementation libs.kotest_runner
     testImplementation libs.kotest_assertions
     testImplementation libs.kotest_property
     testImplementation(libs.koin_test) {
         exclude module: 'junit'
     }
-    testImplementation libs.mockito_kotlin
-
     testRuntimeOnly libs.junit_engine
 }
 repositories {

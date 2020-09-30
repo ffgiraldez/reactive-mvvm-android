@@ -9,7 +9,7 @@ import es.ffgiraldez.comicsearch.navigation.Navigator
 import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
 import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuggestionViewModel
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class QueryActivity : AppCompatActivity() {
