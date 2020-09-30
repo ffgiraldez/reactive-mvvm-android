@@ -31,8 +31,8 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 
     compileOptions {
@@ -58,7 +58,6 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 dependencies {
-    kapt libs.databinding_compiler
     kapt libs.arch_comp_room_compiler
     kaptTest libs.arch_comp_room_compiler
 
@@ -86,10 +85,10 @@ dependencies {
     implementation libs.rx_android
     implementation libs.steho
 
-    testImplementation (libs.arch_comp_room_test) {
+    testImplementation(libs.arch_comp_room_test) {
         exclude module: 'junit'
     }
-    testImplementation (libs.arch_comp_test) {
+    testImplementation(libs.arch_comp_test) {
         exclude module: 'junit'
     }
     testImplementation libs.junit_api
