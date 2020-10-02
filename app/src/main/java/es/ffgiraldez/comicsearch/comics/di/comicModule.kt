@@ -3,6 +3,7 @@ package es.ffgiraldez.comicsearch.comics.di
 import android.content.Context
 import androidx.room.Room
 import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
+import es.ffgiraldez.comicsearch.comics.data.network.SuspendComicVineApi
 import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,6 +26,19 @@ val comicModule = module {
                 .client(okHttp.build())
                 .build()
                 .create(ComicVineApi::class.java)
+    }
+    factory {
+        val okHttp = OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor()
+                        .apply { level = HttpLoggingInterceptor.Level.BASIC }
+                )
+
+        Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(ComicVineApi.BASE_URL)
+                .client(okHttp.build())
+                .build()
+                .create(SuspendComicVineApi::class.java)
     }
     single { (context: Context) -> Room.databaseBuilder(context, ComicDatabase::class.java, "comics").build() }
 }

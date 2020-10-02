@@ -55,9 +55,17 @@ android {
     }
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
+        useIR = false // https://github.com/cashapp/turbine/issues/10
+        languageVersion = '1.4'
         jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += [
+                '-Xopt-in=kotlinx.coroutines.FlowPreview',
+                '-Xopt-in=kotlin.experimental.ExperimentalTypeInference',
+                '-Xopt-in=kotlin.time.ExperimentalTime',
+                '-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
+        ]
     }
 }
 
@@ -71,6 +79,8 @@ dependencies {
     implementation libs.androidx_room_rxjava
     implementation libs.androidx_viewmodel
     implementation libs.arrow
+    implementation libs.arrow_fx
+    implementation libs.arrow_fx_coroutines
     implementation(libs.floating_search) {
         exclude module: 'support-v4'
     }
@@ -82,6 +92,7 @@ dependencies {
     implementation libs.koin_android
     implementation libs.koin_architecture
     implementation libs.kotlin_stdlib
+    implementation libs.kotlinx_coroutines
     implementation libs.retrofit
     implementation libs.retrofit_gson
     implementation libs.retrofit_rx_java
@@ -97,6 +108,7 @@ dependencies {
     }
     testImplementation libs.junit_api
     testImplementation libs.junit_params
+    testImplementation libs.mockito_core
     testImplementation libs.mockito_kotlin
     testImplementation libs.kotest_runner
     testImplementation libs.kotest_assertions
@@ -104,6 +116,7 @@ dependencies {
     testImplementation(libs.koin_test) {
         exclude module: 'junit'
     }
+    testImplementation libs.turbine
     testRuntimeOnly libs.junit_engine
 }
 repositories {

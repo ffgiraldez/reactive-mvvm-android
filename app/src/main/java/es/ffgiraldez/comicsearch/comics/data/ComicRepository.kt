@@ -12,7 +12,7 @@ import es.ffgiraldez.comicsearch.platform.left
 import es.ffgiraldez.comicsearch.platform.right
 import io.reactivex.Flowable
 
-abstract class ComicRepository<T> (
+abstract class ComicRepository<T>(
         private val local: ComicLocalDataSource<T>,
         private val remote: ComicRemoteDataSource<T>
 ) {

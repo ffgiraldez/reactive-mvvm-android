@@ -1,16 +1,17 @@
 package es.ffgiraldez.comicsearch.comics.data
 
+import arrow.core.left
+import arrow.core.right
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.verify
 import es.ffgiraldez.comicsearch.comics.data.GivenComicRepository.Companion.expectedTerm
 import es.ffgiraldez.comicsearch.comics.data.GivenComicRepository.Companion.givenComicRepositoryMethodSource
+import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.comics.domain.ComicError.EmptyResultsError
 import es.ffgiraldez.comicsearch.comics.domain.ComicError.NetworkError
 import es.ffgiraldez.comicsearch.platform.left
-import es.ffgiraldez.comicsearch.platform.right
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.next
-
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
@@ -29,7 +30,7 @@ class ComicRepositoryShould
 
         val observer = repository.findByTerm(expectedTerm).test()
 
-        observer.assertValue(left(EmptyResultsError))
+        observer.assertValue(EmptyResultsError.left())
     }
 
     @ParameterizedTest
@@ -45,7 +46,7 @@ class ComicRepositoryShould
 
         val observer = repository.findByTerm(expectedTerm).test()
 
-        observer.assertValue(right(expectedList))
+        observer.assertValue(expectedList.right())
     }
 
     @ParameterizedTest
@@ -97,7 +98,7 @@ class ComicRepositoryShould
 
         val observer = repository.findByTerm(expectedTerm).test()
 
-        observer.assertValue(left(EmptyResultsError))
+        observer.assertValue(EmptyResultsError.left())
     }
 
     @ParameterizedTest
@@ -113,7 +114,7 @@ class ComicRepositoryShould
 
         val observer = repository.findByTerm(expectedTerm).test()
 
-        observer.assertValue(left(NetworkError))
+        observer.assertValue(NetworkError.left())
     }
 
     @ParameterizedTest
@@ -131,7 +132,7 @@ class ComicRepositoryShould
 
         val observer = repository.findByTerm(expectedTerm).test()
 
-        observer.assertValue(right(expected))
+        observer.assertValue(expected.right())
     }
 }
 

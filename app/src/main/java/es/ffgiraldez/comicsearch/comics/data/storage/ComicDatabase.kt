@@ -16,5 +16,9 @@ import androidx.room.RoomDatabase
 abstract class ComicDatabase : RoomDatabase() {
     abstract fun suggestionDao(): SuggestionDao
 
+    abstract fun suspendingSuggestionDao(): SuspendSuggestionDao
+
     abstract fun volumeDao(): VolumeDao
+
+    abstract fun suspendingVolumeDao(): SuspendingVolumeDao
 }

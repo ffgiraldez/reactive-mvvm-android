@@ -2,18 +2,16 @@ package es.ffgiraldez.comicsearch.query.sugestion.presentation
 
 import arrow.core.Either
 import com.nhaarman.mockitokotlin2.mock
-import es.ffgiraldez.comicsearch.comic.gen.query
-import es.ffgiraldez.comicsearch.comic.gen.suggestions
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
+import es.ffgiraldez.comicsearch.comics.gen.query
+import es.ffgiraldez.comicsearch.comics.gen.suggestions
 import es.ffgiraldez.comicsearch.platform.toFlowable
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.presentation.toViewState
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.property.Arb
 import io.kotest.property.checkAll
-
 import io.kotlintest.provided.ProjectConfig
-
 import io.reactivex.Flowable
 import org.mockito.ArgumentMatchers.anyString
 import java.util.concurrent.TimeUnit.SECONDS

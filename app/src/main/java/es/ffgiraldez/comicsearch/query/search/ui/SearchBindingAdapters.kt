@@ -55,7 +55,7 @@ fun RecyclerView.bindStateData(inputAdapter: QueryVolumeAdapter, data: QueryView
 
     data?.let {
         gone(data.error != null)
-        bindResults(data.results)
+        update(data.results)
     }
 }
 
@@ -73,6 +73,6 @@ fun ProgressBar.bindProgress(data: QueryViewState<Volume>?) = data?.run {
     gone(!loading)
 }
 
-private fun RecyclerView.bindResults(error: List<Volume>): Unit = with(adapter as QueryVolumeAdapter) {
-    this.submitList(error)
+private fun RecyclerView.update(results: List<Volume>): Unit = with(adapter as QueryVolumeAdapter) {
+    this.submitList(results)
 }

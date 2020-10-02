@@ -14,4 +14,8 @@ data class Query(
 sealed class ComicError {
     object NetworkError : ComicError()
     object EmptyResultsError : ComicError()
+    companion object{
+        fun network(): ComicError = NetworkError
+        fun emptyResult(): ComicError = EmptyResultsError
+    }
 }

@@ -3,12 +3,12 @@ package es.ffgiraldez.comicsearch.query.base.ui
 import es.ffgiraldez.comicsearch.comics.domain.Volume
 import es.ffgiraldez.comicsearch.navigation.Navigator
 import es.ffgiraldez.comicsearch.navigation.Screen
-import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
-import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuggestionViewModel
+import es.ffgiraldez.comicsearch.query.search.presentation.SuspendSearchViewModel
+import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuspendSuggestionViewModel
 
 class QueryScreenDelegate(
-        val suggestions: SuggestionViewModel,
-        val search: SearchViewModel,
+        val suggestions: SuspendSuggestionViewModel,
+        val search: SuspendSearchViewModel,
         val adapter: QueryVolumeAdapter,
         private val navigator: Navigator
 ) {
