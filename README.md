@@ -1,11 +1,11 @@
-# RxMVVM
+# Reactive MVVM
 
-My way to MVVM using RxJava with new Android databinding
+My way to MVVM using KotlinX Coroutines with Android databinding
 
 ## Summary
 * Use [MVVM][1] using [architecture components][6] with to separate Android Framework with a [clean architecture][2] to my domain logic.
 * Use [Android Databinding][3] wih [LiveData][8] to glue [ViewModel][9] and Android
-* Asynchronous communications implemented with [Rx][4].
+* Asynchronous communications implemented with [KotlinX Coroutines][4].
 * Rest API from [ComicVine][5]
 * Store data using [Room][7]
 
@@ -14,7 +14,7 @@ My way to MVVM using RxJava with new Android databinding
   * livedata
   * room
   * viewmodel
-* rx-java
+* kotlinx coroutines
 * floating search
 * okhttp
 * retrofit
@@ -24,6 +24,7 @@ My way to MVVM using RxJava with new Android databinding
 ### Testing
 * [Kotest][10]
 * [Android Junit 5][11]
+* [Turbine] [12]
 
 TODO LIST
 ---------
@@ -62,7 +63,7 @@ License
 [1]: https://en.wikipedia.org/wiki/Model_View_ViewModel
 [2]: http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html
 [3]: https://developer.android.com/topic/libraries/data-binding/index.html
-[4]: http://reactivex.io/
+[4]: https://github.com/Kotlin/kotlinx.coroutines
 [5]: http://www.comicvine.com/api/
 [6]: https://developer.android.com/topic/libraries/architecture/index.html
 [7]: https://developer.android.com/topic/libraries/architecture/room.html
@@ -70,3 +71,4 @@ License
 [9]: https://developer.android.com/topic/libraries/architecture/viewmodel.html
 [10]: https://kotest.io
 [11]: https://github.com/mannodermaus/android-junit5
+[12]: https://github.com/cashapp/turbine
