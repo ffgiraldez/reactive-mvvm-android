@@ -14,7 +14,6 @@ class SuspendSuggestionViewModel private constructor(
             it.debounce(400)
                     .flatMapLatest { query ->
                         handleQuery(query, repo)
-                                .onStart { emit(QueryViewState.loading()) }
                     }.onStart { emit(QueryViewState.idle()) }
                     .distinctUntilChanged()
         }

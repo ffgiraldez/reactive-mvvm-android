@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.util.Consumer
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arlib.floatingsearchview.FloatingSearchView
@@ -18,7 +19,6 @@ import es.ffgiraldez.comicsearch.query.base.ui.error
 import es.ffgiraldez.comicsearch.query.base.ui.loading
 import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
-import io.reactivex.functions.Consumer
 
 interface ClickConsumer : Consumer<SearchSuggestion>
 interface SearchConsumer : Consumer<String>

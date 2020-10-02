@@ -3,9 +3,10 @@ package io.kotlintest.provided
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 import io.kotest.core.config.AbstractProjectConfig
-import io.reactivex.plugins.RxJavaPlugins
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.schedulers.TestScheduler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 
 object ProjectConfig : AbstractProjectConfig() {
 
@@ -27,18 +28,14 @@ object ProjectConfig : AbstractProjectConfig() {
             }
         })
 
-        RxJavaPlugins.reset()
-        RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
-        RxJavaPlugins.setNewThreadSchedulerHandler { Schedulers.trampoline() }
-        RxJavaPlugins.setComputationSchedulerHandler { testScheduler }
-
+        Dispatchers.setMain(testDispatcher)
     }
 
-    val testScheduler = TestScheduler()
+    val testDispatcher = TestCoroutineDispatcher()
 
     override fun afterAll() {
         super.afterAll()
         ArchTaskExecutor.getInstance().setDelegate(null)
-        RxJavaPlugins.reset()
+        Dispatchers.resetMain()
     }
 }

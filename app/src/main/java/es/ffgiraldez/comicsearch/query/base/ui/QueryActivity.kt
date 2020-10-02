@@ -6,9 +6,7 @@ import androidx.databinding.DataBindingUtil
 import es.ffgiraldez.comicsearch.R
 import es.ffgiraldez.comicsearch.databinding.QueryActivityBinding
 import es.ffgiraldez.comicsearch.navigation.Navigator
-import es.ffgiraldez.comicsearch.query.search.presentation.SearchViewModel
 import es.ffgiraldez.comicsearch.query.search.presentation.SuspendSearchViewModel
-import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuggestionViewModel
 import es.ffgiraldez.comicsearch.query.sugestion.presentation.SuspendSuggestionViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -76,7 +76,6 @@ dependencies {
     implementation libs.androidx_constraint
     implementation libs.androidx_livedata
     implementation libs.androidx_room
-    implementation libs.androidx_room_rxjava
     implementation libs.androidx_viewmodel
     implementation libs.arrow
     implementation libs.arrow_fx
@@ -95,9 +94,6 @@ dependencies {
     implementation libs.kotlinx_coroutines
     implementation libs.retrofit
     implementation libs.retrofit_gson
-    implementation libs.retrofit_rx_java
-    implementation libs.rx_java
-    implementation libs.rx_android
     implementation libs.steho
 
     testImplementation(libs.androidx_room_test) {
@@ -106,6 +102,7 @@ dependencies {
     testImplementation(libs.androidx_test) {
         exclude module: 'junit'
     }
+    testImplementation libs.kotlinx_coroutines_test
     testImplementation libs.junit_api
     testImplementation libs.junit_params
     testImplementation libs.mockito_core
