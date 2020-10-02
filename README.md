@@ -24,7 +24,7 @@ My way to MVVM using KotlinX Coroutines with Android databinding
 ### Testing
 * [Kotest][10]
 * [Android Junit 5][11]
-* [Turbine] [12]
+* [Turbine][12]
 
 TODO LIST
 ---------
