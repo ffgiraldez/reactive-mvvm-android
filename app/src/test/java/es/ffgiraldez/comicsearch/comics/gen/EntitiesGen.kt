@@ -1,25 +1,19 @@
-package es.ffgiraldez.comicsearch.comic.gen
+package es.ffgiraldez.comicsearch.comics.gen
 
 import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import es.ffgiraldez.comicsearch.comics.domain.ComicError
 import es.ffgiraldez.comicsearch.comics.domain.Volume
-import es.ffgiraldez.comicsearch.platform.left
-import es.ffgiraldez.comicsearch.platform.right
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.arb
-import io.kotest.property.arbitrary.bind
-import io.kotest.property.arbitrary.bool
-import io.kotest.property.arbitrary.filter
-import io.kotest.property.arbitrary.map
-import io.kotest.property.arbitrary.next
-import io.kotest.property.arbitrary.string
+import io.kotest.property.arbitrary.*
 
 fun Arb.Companion.suggestions(): Arb<Either<ComicError, List<String>>> = arb {
     generateSequence {
         when (Arb.bool().next(it)) {
-            true -> left(Arb.comicError().next(it))
-            false -> right(Arb.suggestionList().next(it))
+            true -> Arb.comicError().next(it).left()
+            false -> Arb.suggestionList().next(it).right()
         }
     }
 }
@@ -52,8 +46,8 @@ fun Arb.Companion.suggestionsResultViewState(): Arb<QueryViewState.Result<String
 fun Arb.Companion.search(): Arb<Either<ComicError, List<Volume>>> = arb {
     generateSequence {
         when (Arb.bool().next(it)) {
-            true -> left(Arb.comicError().next(it))
-            false -> right(Arb.volumeList().next(it))
+            true -> Arb.comicError().next(it).left()
+            false -> Arb.volumeList().next(it).right()
         }
     }
 }

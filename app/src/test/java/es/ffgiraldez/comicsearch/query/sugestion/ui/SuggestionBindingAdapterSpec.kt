@@ -1,23 +1,16 @@
 package es.ffgiraldez.comicsearch.query.sugestion.ui
 
+
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.argumentCaptor
-import com.nhaarman.mockitokotlin2.doNothing
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.verifyZeroInteractions
-import com.nhaarman.mockitokotlin2.whenever
-import es.ffgiraldez.comicsearch.comic.gen.suggestionsErrorViewState
-import es.ffgiraldez.comicsearch.comic.gen.suggestionsResultViewState
+import com.nhaarman.mockitokotlin2.*
+import es.ffgiraldez.comicsearch.comics.gen.suggestionsErrorViewState
+import es.ffgiraldez.comicsearch.comics.gen.suggestionsResultViewState
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.property.Arb
 import io.kotest.property.checkAll
-
-
 import org.junit.jupiter.api.Assertions.assertEquals
 
 

@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.util.Consumer
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arlib.floatingsearchview.FloatingSearchView
@@ -18,7 +19,6 @@ import es.ffgiraldez.comicsearch.query.base.ui.error
 import es.ffgiraldez.comicsearch.query.base.ui.loading
 import es.ffgiraldez.comicsearch.query.base.ui.results
 import es.ffgiraldez.comicsearch.query.base.ui.toHumanResponse
-import io.reactivex.functions.Consumer
 
 interface ClickConsumer : Consumer<SearchSuggestion>
 interface SearchConsumer : Consumer<String>
@@ -55,7 +55,7 @@ fun RecyclerView.bindStateData(inputAdapter: QueryVolumeAdapter, data: QueryView
 
     data?.let {
         gone(data.error != null)
-        bindResults(data.results)
+        update(data.results)
     }
 }
 
@@ -73,6 +73,6 @@ fun ProgressBar.bindProgress(data: QueryViewState<Volume>?) = data?.run {
     gone(!loading)
 }
 
-private fun RecyclerView.bindResults(error: List<Volume>): Unit = with(adapter as QueryVolumeAdapter) {
-    this.submitList(error)
+private fun RecyclerView.update(results: List<Volume>): Unit = with(adapter as QueryVolumeAdapter) {
+    this.submitList(results)
 }

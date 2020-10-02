@@ -1,45 +1,37 @@
 package es.ffgiraldez.comicsearch.query.sugestion.data
 
-import es.ffgiraldez.comicsearch.comics.data.ComicLocalDataSource
-import es.ffgiraldez.comicsearch.comics.data.ComicRemoteDataSource
-import es.ffgiraldez.comicsearch.comics.data.network.ComicVineApi
+import es.ffgiraldez.comicsearch.comics.data.SuspendComicLocalDataSource
+import es.ffgiraldez.comicsearch.comics.data.SuspendComicRemoteDataSource
+import es.ffgiraldez.comicsearch.comics.data.network.SuspendComicVineApi
 import es.ffgiraldez.comicsearch.comics.data.storage.ComicDatabase
 import es.ffgiraldez.comicsearch.comics.domain.Query
-import es.ffgiraldez.comicsearch.platform.ComicSchedulers
-import es.ffgiraldez.comicsearch.platform.Option
-import es.ffgiraldez.comicsearch.platform.toOption
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class SuggestionRemoteDataSource(
-        private val api: ComicVineApi
-) : ComicRemoteDataSource<String> {
-    override fun findByTerm(searchTerm: String): Single<List<String>> = api.fetchVolumes(searchTerm)
-            .subscribeOn(ComicSchedulers.network)
-            .map { response ->
+class SuspendSuggestionRemoteDataSource(
+        private val api: SuspendComicVineApi
+) : SuspendComicRemoteDataSource<String> {
+    override suspend fun findByTerm(searchTerm: String): List<String> = api.fetchSuggestedVolumes(searchTerm)
+            .let { response ->
                 response.results
                         .distinctBy { it.name }
                         .map { it.name }
             }
 }
 
-class SuggestionLocalDataSource(
+class SuspendSuggestionLocalDataSource(
         private val database: ComicDatabase
-) : ComicLocalDataSource<String> {
-    override fun insert(query: String, titles: List<String>): Completable =
-            Completable.fromAction {
-                database.suggestionDao().insert(query, titles)
-            }.subscribeOn(ComicSchedulers.database)
+) : SuspendComicLocalDataSource<String> {
+    override suspend fun insert(query: String, titles: List<String>) =
+            database.suspendingSuggestionDao().insert(query, titles)
 
-    override fun findQueryByTerm(searchTerm: String): Flowable<Option<Query>> = database.suggestionDao()
-            .findQueryByTerm(searchTerm)
-            .subscribeOn(ComicSchedulers.database)
-            .flatMap { Flowable.just(it.firstOrNull().toOption()) }
-            .map { search -> search.map { Query(it.queryId, it.searchTerm) } }
+    override fun findQueryByTerm(searchTerm: String): Flow<Query?> =
+            database.suspendingSuggestionDao()
+                    .findQueryByTerm(searchTerm)
+                    .map { results -> results?.let { Query(it.queryId, it.searchTerm) } }
 
-    override fun findByQuery(query: Query): Flowable<List<String>> = database.suggestionDao()
-            .findSuggestionByQuery(query.identifier)
-            .subscribeOn(ComicSchedulers.database)
-            .map { suggestions -> suggestions.map { it.title } }
+    override fun findByQuery(query: Query): Flow<List<String>> =
+            database.suspendingSuggestionDao()
+                    .findSuggestionByQuery(query.identifier)
+                    .map { suggestions -> suggestions.map { it.title } }
 }

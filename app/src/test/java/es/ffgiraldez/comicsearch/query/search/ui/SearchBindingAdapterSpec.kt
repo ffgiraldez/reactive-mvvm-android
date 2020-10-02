@@ -14,8 +14,8 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import com.nhaarman.mockitokotlin2.whenever
-import es.ffgiraldez.comicsearch.comic.gen.searchErrorViewState
-import es.ffgiraldez.comicsearch.comic.gen.searchViewState
+import es.ffgiraldez.comicsearch.comics.gen.searchErrorViewState
+import es.ffgiraldez.comicsearch.comics.gen.searchViewState
 import es.ffgiraldez.comicsearch.query.base.presentation.QueryViewState
 import es.ffgiraldez.comicsearch.query.base.ui.OnVolumeSelectedListener
 import es.ffgiraldez.comicsearch.query.base.ui.QuerySearchSuggestion.ErrorSuggestion
