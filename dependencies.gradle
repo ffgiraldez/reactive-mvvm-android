@@ -33,7 +33,7 @@ ext {
             androidx_room          : [group: 'androidx.room', name: 'room-ktx', version: versions.androidx_room],
             androidx_room_compiler : [group: 'androidx.room', name: 'room-compiler', version: versions.androidx_room],
             androidx_room_test     : [group: 'androidx.room', name: 'room-testing', version: versions.androidx_room],
-            androidx_constraint    : [group: 'androidx.constraintlayout', name: 'constraintlayout', version: '2.0.0'],
+            androidx_constraint    : [group: 'androidx.constraintlayout', name: 'constraintlayout', version: '2.1.4'],
             arrow                  : [group: 'io.arrow-kt', name: 'arrow-core', version: '0.11.0'],
             arrow_fx               : [group: 'io.arrow-kt', name: 'arrow-fx', version: '0.11.0'],
             arrow_fx_coroutines    : [group: 'io.arrow-kt', name: 'arrow-fx-coroutines', version: '0.11.0'],
