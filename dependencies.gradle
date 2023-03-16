@@ -11,7 +11,7 @@ ext {
             androidx_lifecycle: '2.2.0',
             android_plugin    : '4.0.1',
             coroutines        : '1.3.9',
-            koin              : '2.2.0-beta-1',
+            koin              : '2.2.2',
             kotlin            : '1.4.10',
             kotest            : '4.2.5',
             okhttp            : '4.9.0',
