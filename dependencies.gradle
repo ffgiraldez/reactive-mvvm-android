@@ -9,7 +9,7 @@ ext {
     versions = [
             androidx_room     : '2.2.5',
             androidx_lifecycle: '2.2.0',
-            android_plugin    : '4.0.1',
+            android_plugin    : '4.2.2',
             coroutines        : '1.3.9',
             koin              : '2.2.0-beta-1',
             kotlin            : '1.4.10',
