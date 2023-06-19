@@ -60,7 +60,7 @@ ext {
             retrofit               : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
             retrofit_gson          : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
             steho                  : [group: 'com.facebook.stetho', name: 'stetho', version: '1.5.1'],
-            turbine                : [group: 'app.cash.turbine', name: 'turbine', version: '0.2.1']
+            turbine                : [group: 'app.cash.turbine', name: 'turbine', version: '0.13.0']
     ]
 
 }
