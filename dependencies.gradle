@@ -56,7 +56,7 @@ ext {
             kotest_property        : [group: 'io.kotest', name: 'kotest-property-jvm', version: versions.kotest],
             mockito_core           : [group: 'org.mockito', name: 'mockito-core', version: '3.5.13'],
             mockito_kotlin         : [group: 'com.nhaarman.mockitokotlin2', name: 'mockito-kotlin', version: '2.2.0'],
-            picasso                : [group: 'com.squareup.picasso', name: 'picasso', version: '2.8'],
+            picasso                : [group: 'com.squareup.picasso', name: 'picasso', version: '2.71828'],
             retrofit               : [group: 'com.squareup.retrofit2', name: 'retrofit', version: versions.retrofit],
             retrofit_gson          : [group: 'com.squareup.retrofit2', name: 'converter-gson', version: versions.retrofit],
             steho                  : [group: 'com.facebook.stetho', name: 'stetho', version: '1.5.1'],
