@@ -23,7 +23,7 @@ ext {
     build_plugins = [
             android_gradle: [group: 'com.android.tools.build', name: 'gradle', version: versions.android_plugin],
             kotlin_gradle : [group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: versions.kotlin],
-            android_junit : [group: 'de.mannodermaus.gradle.plugins', name: 'android-junit5', version: '1.6.2.0']
+            android_junit : [group: 'de.mannodermaus.gradle.plugins', name: 'android-junit5', version: '1.10.0.0']
     ]
 
     libs = [
